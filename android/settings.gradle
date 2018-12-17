@@ -1,0 +1,3 @@
+rootProject.name = 'CxAppCeb'
+
+include ':app'
