@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import { Button, WhiteSpace } from '@ant-design/react-native';
+import { Button, Modal, Toast } from '@ant-design/react-native';
 
 const options = {
   title: '选择图片',
@@ -37,7 +37,6 @@ export default class ImagePickerExample extends React.Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        const source = { uri: response.uri };
         fetch('http://172.16.20.20:5000/api/face-detect', {
           method: 'POST',
           headers: {
@@ -49,8 +48,25 @@ export default class ImagePickerExample extends React.Component {
         })
           .then((response) => response.text())
           .then((responseData) => {
+            const data = JSON.parse(responseData);
+            console.log('responseData', data);
+            if (data.error_code === 0) {
+              console.log(data.log_id);
+              alert('识别成功！log_id：' + data.log_id);
+              // Toast.success('识别成功！log_id：', 3);
 
-            console.log('responseData', responseData);
+              // Modal.alert(
+              //   '提示',
+              //   '识别成功！log_id：' + data.log_id,
+              //   [
+              //     { text: '确定', onPress: () => console.log('确定') },
+              //   ]
+              // )
+            }
+            else
+            {
+              alert('识别失败：' + data.error_msg);
+            }
           })
           .catch((error) => { console.error('error', error) });
       }

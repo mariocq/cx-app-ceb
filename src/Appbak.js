@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableHighlight, View, Modal } from 'react-native';
 import { Icon, SearchBar, TabBar } from '@ant-design/react-native';
+import { Button, Toast } from '@ant-design/react-native';
 export default class BasicTabBarExample extends React.Component {
   constructor(props) {
     super(props);
@@ -9,18 +10,54 @@ export default class BasicTabBarExample extends React.Component {
     };
     this.renderContent = this.renderContent.bind(this);
   }
+  state = {
+    modalVisible: false
+  };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
   renderContent(pageText, tabName) {
     const hide = tabName === this.state.selectedTab;
-    console.log(hide , tabName , this.state.selectedTab);
-    
+
     if (hide) {
       return (
-        <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+        <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
           <Text style={{ margin: 50 }}>{pageText},{tabName}</Text>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              alert("Modal has been closed.");
+            }}
+          >
+            <View style={{ marginTop: 22 }}>
+              <View>
+                <Text>Hello World!</Text>
+
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}
+                >
+                  <Text>Hide Modal</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+
+          <TouchableHighlight
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+          >
+            <Text>Show Modal</Text>
+          </TouchableHighlight>
         </View>
       );
     }
-    else{
+    else {
       return null;
     }
   }

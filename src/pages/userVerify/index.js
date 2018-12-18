@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/ScreenUtil';
-import icon from '../../assets/image/home.png';
 import face from '../../assets/image/face.png';
-import { Button, WhiteSpace } from '@ant-design/react-native';
+import { Button, Modal, Toast } from '@ant-design/react-native';
 import ImagePicker from "../../component/ImagePicker";
 
 class Home extends Component {
