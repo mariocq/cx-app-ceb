@@ -4,7 +4,7 @@ import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/ScreenUtil';
 import icon from '../../assets/image/home.png';
 import { Button, WhiteSpace } from '@ant-design/react-native';
-import ImagePickerExample from "./ImagePicker";
+import ImagePicker from "./ImagePicker";
 
 class Home extends Component {
   static navigationOptions = {
@@ -18,7 +18,7 @@ class Home extends Component {
 
   onSubimt() {
     console.log('submit');
-    
+
   }
 
   render() {
@@ -26,9 +26,7 @@ class Home extends Component {
       <View style={{ padding: 10 }}>
         <Text>图片选择</Text>
         <WhiteSpace />
-        <ImagePickerExample />
-        <WhiteSpace />
-        <Button type="primary">检测</Button>
+        <ImagePicker />
       </View>
     );
   }

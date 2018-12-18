@@ -1,89 +1,66 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ImagePicker, WhiteSpace } from '@ant-design/react-native';
-import { PermissionsAndroid } from 'react-native';
+import { View, Image } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { Button, WhiteSpace } from '@ant-design/react-native';
+
+const options = {
+  title: '选择图片',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+
+
+// Launch Camera:
+// ImagePicker.launchCamera(options, (response) => {
+//   // Same code as in above section!
+// });
+
+// Open Image Library:
+// ImagePicker.launchImageLibrary(options, (response) => {
+//   // Same code as in above section!
+// });
 
 export default class ImagePickerExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
-          id: '2121',
-        },
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
-          id: '2122',
-        },
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
-          id: '2123',
-        },
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
-          id: '2124',
-        },
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
-          id: '2125',
-        },
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
-          id: '2126',
-        },
-      ],
-      files2: [],
     };
   }
-  async componentWillMount() {
-    await requestReadExteralStorage();
-  }
+  onPick() {
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
 
-  handleFileChange = (files) => {
-    this.setState({
-      files,
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const source = { uri: response.uri };
+        fetch('http://172.16.20.20:5000/api/face-detect', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            'image': response.data
+          }),
+        })
+          .then((response) => response.text())
+          .then((responseData) => {
+
+            console.log('responseData', responseData);
+          })
+          .catch((error) => { console.error('error', error) });
+      }
     });
   }
-
-  handleFile2Change = (files2) => {
-    this.setState({
-      files2,
-    });
-  }
-
   render() {
     return (
-      <View style={{ marginTop: 20, marginLeft: 20 }}>
-        <ImagePicker
-          onChange={this.handleFileChange}
-          files={this.state.files}
-        />
-        <WhiteSpace />
-        <ImagePicker
-          onChange={this.handleFile2Change}
-          files={this.state.files2}
-        />
+      <View style={{ margin: 20 }}>
+        <Button type="primary" onPress={this.onPick.bind(this)}>检测</Button>
       </View>
     );
-  }
-}
-
-async function requestReadExteralStorage() {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      {
-        title: '申请相册权限',
-        message: '可选择相册图片'
-      },
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('现在你获得摄像头权限了');
-    } else {
-      console.log('用户并不屌你');
-    }
-  } catch (err) {
-    console.warn(err);
   }
 }
