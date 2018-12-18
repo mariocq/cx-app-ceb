@@ -4,7 +4,10 @@ import ImagePicker from 'react-native-image-picker';
 import { Button, Modal, Toast, ActivityIndicator } from '@ant-design/react-native';
 
 const options = {
-  title: '选择图片',
+  title: '',
+  takePhotoButtonTitle: '拍照',
+  cancelButtonTitle: '取消',
+  chooseFromLibraryButtonTitle: '选择图片',
   storageOptions: {
     skipBackup: true,
     path: 'images',
@@ -32,13 +35,12 @@ export default class ImagePickerExample extends React.Component {
   onPick() {
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
-      this.setState({ animating: !this.state.animating });
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
+        this.setState({ animating: !this.state.animating });
         fetch('http://172.16.20.20:5000/api/face-detect', {
           method: 'POST',
           headers: {
