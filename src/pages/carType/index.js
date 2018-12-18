@@ -3,8 +3,7 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/ScreenUtil';
 import icon from '../../assets/image/home.png';
-import { FETCH_HOME_NAME } from '../../constants/ActionTypes';
-import { Icon, SearchBar, TabBar } from '@ant-design/react-native';
+import { Button, WhiteSpace } from '@ant-design/react-native';
 
 class Home extends Component {
   static navigationOptions = {
@@ -13,40 +12,21 @@ class Home extends Component {
         source={icon}
         style={[styles.icon, { tintColor: tintColor }]}
       />
-      // <Icon name="idcard" />
     ),
   };
 
-  constructor(props) {
-    super(props);
-    this.goNext = this.goNext.bind(this);
+  goAction() {
+    this.props.navigation.navigate('ActionDetection');
   }
 
-  componentWillMount() {
-    const { dispatch } = this.props;
-    /**
-     * 在组件中dispatch action
-     * 一定要写namespace
-     */
-    dispatch({
-      type: `home/${FETCH_HOME_NAME}`,
-    })
+  goFace() {
+    this.props.navigation.navigate('FaceDetection');
   }
-
-  goNext() {
-    const { navigation } = this.props;
-    /**
-     * 页面跳转，传值
-     */
-    navigation.navigate('HomeNext', { name: '我是下一页' });
-  }
-  
 
   render() {
-    const { name } = this.props;
     return (
-      <View style={styles.wrapper}>
-        <Text onPress={this.goNext}>{name}</Text>
+      <View style={{ padding: 10 }}>
+        <Button type="primary" onPress={this.goAction.bind(this)}>车型识别</Button>
       </View>
     );
   }
@@ -62,6 +42,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  btn: {
+    marginTop: scaleSize(40),
+  }
 });
 
 function mapStateToProps(state) {

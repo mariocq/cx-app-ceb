@@ -6,7 +6,9 @@ import { connect } from '../utils/dva';
 import React, { Component } from 'react';
 import { scaleSize } from '../utils/ScreenUtil';
 
-import Home from '../pages/home/Home'; 
+import UserVerify from '../pages/userVerify'; 
+import CarType from '../pages/carType'; 
+import CarVin from '../pages/carVin'; 
 import Mine from '../pages/mine/Mine'; 
 
 import Pages from '../config/routerConfig';
@@ -15,8 +17,20 @@ class Router extends Component {
 
   renderTabs() {
     return TabNavigator({
-      首页: {
-        screen: Home,
+      身份认证: {
+        screen: UserVerify,
+        navigationOptions: {
+          header: null,
+        },
+      },
+      车型识别: {
+        screen: CarType,
+        navigationOptions: {
+          header: null,
+        },
+      },
+      车架号识别: {
+        screen: CarVin,
         navigationOptions: {
           header: null,
         },
@@ -31,14 +45,14 @@ class Router extends Component {
       tabBarPosition: 'bottom',
       animationEnabled: false,
       swipeEnabled: false,
-      initialRouteName: '首页',
+      initialRouteName: '身份认证',
       backBehavior: 'none',
-      lazy: true, // 懒加载
+      lazy: false, // 懒加载
       tabBarOptions: {
         activeTintColor: '#4396ec',
         inactiveTintColor: '#b2b2b2',
         showIcon: true,
-        showLabel: false,
+        showLabel: true,
         pressColor: '#999',
         indicatorStyle: {
           height: 0,
