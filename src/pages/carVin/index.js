@@ -3,14 +3,15 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/ScreenUtil';
 import icon from '../../assets/image/home.png';
+import carVin from '../../assets/image/carVin.png';
 import { Button, WhiteSpace } from '@ant-design/react-native';
-import ImagePicker from "./ImagePicker";
+import ImagePicker from "../../component/ImagePicker";
 
 class Home extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Image
-        source={icon}
+        source={carVin}
         style={[styles.icon, { tintColor: tintColor }]}
       />
     ),
@@ -23,9 +24,13 @@ class Home extends Component {
 
   render() {
     return (
-      <View style={{ padding: 10 }}>
-        <Text>图片选择</Text>
-        <WhiteSpace />
+      <View>
+        <View style={styles.title}>
+          <Text>车架号识别</Text>
+        </View>
+        <View style={styles.bg}>
+          <Image source={carVin} style={styles.bgImg}></Image>
+        </View>
         <ImagePicker />
       </View>
     );
@@ -37,13 +42,14 @@ const styles = StyleSheet.create({
     width: scaleSize(40),
     height: scaleSize(40),
   },
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  title: {
+    padding: 10, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
   },
-  btn: {
-    marginTop: scaleSize(40),
+  bg: {
+    alignItems: 'center', justifyContent: 'center', height: 350
+  },
+  bgImg: {
+    opacity: 0.4
   }
 });
 
