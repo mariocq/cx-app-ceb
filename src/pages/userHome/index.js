@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
+import { List } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import { scaleSize } from '../../utils/ScreenUtil';
 import icon from '../../assets/image/mine.png';
+const Item = List.Item;
 
 class Mine extends Component {
   static navigationOptions = {
@@ -28,6 +30,19 @@ class Mine extends Component {
             <Text style={styles.userPhone}>岗位：巡检员</Text>
           </View>
         </View>
+        <View style={styles.menuWrap}>
+          <List>
+            <Item arrow="horizontal" onPress={() => { }}>
+              登录日志
+            </Item>
+            <Item arrow="horizontal" onPress={() => { }}>
+              修改密码
+            </Item>
+            <Item arrow="horizontal" onPress={() => { }}>
+              关于软件
+            </Item>
+          </List>
+        </View>
       </View>
     );
   }
@@ -52,10 +67,13 @@ const styles = StyleSheet.create({
     tintColor: '#ffffff', marginLeft: 20,
   },
   userName: {
-    fontSize: 16, color: '#FFFFFF', paddingLeft: 10, width: 300,
+    fontSize: 16, color: '#FFFFFF', paddingLeft: 10, width: 250,
   },
   userPhone: {
     fontSize: 14, color: '#83cbff', marginLeft: 50, marginTop: 30
+  },
+  menuWrap: {
+    marginTop: 0,
   },
 });
 
