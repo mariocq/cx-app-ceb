@@ -16,8 +16,13 @@ class Mine extends Component {
 
   render() {
     return (
-      <View style={styles.wrapper}>
-        <Text>我的</Text>
+      <View>
+        <View style={styles.title}>
+          <Text>我的</Text>
+        </View>
+        <View style={styles.bgUser}>
+          <Image source={icon} style={styles.bgImg}></Image>
+        </View>
       </View>
     );
   }
@@ -25,14 +30,18 @@ class Mine extends Component {
 
 const styles = StyleSheet.create({
   icon: {
-    width: scaleSize(40),
-    height: scaleSize(40),
+    width: scaleSize(50),
+    height: scaleSize(50),
   },
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  title: {
+    padding: 10, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
   },
+  bgUser: {
+    alignItems: 'center', justifyContent: 'flex-start', height: 350, marginTop: 20
+  },
+  bgImg: {
+    opacity: 0.6
+  }
 });
 
 export default Mine;

@@ -42,8 +42,8 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   icon: {
-    width: scaleSize(40),
-    height: scaleSize(40),
+    width: scaleSize(50),
+    height: scaleSize(50),
   },
   title: {
     padding: 10, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center', height: 350
   },
   bgImg: {
-    opacity: 0.4
+    opacity: 0.6
   }
 });
 

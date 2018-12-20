@@ -6,10 +6,10 @@ import { connect } from '../utils/dva';
 import React, { Component } from 'react';
 import { scaleSize } from '../utils/ScreenUtil';
 
-import UserVerify from '../pages/userVerify'; 
-import CarType from '../pages/carType'; 
-import CarVin from '../pages/carVin'; 
-import Mine from '../pages/mine/Mine'; 
+import UserVerify from '../pages/userVerify';
+import CarType from '../pages/carType';
+import CarVin from '../pages/carVin';
+import Mine from '../pages/mine/Mine';
 
 import Pages from '../config/routerConfig';
 
@@ -58,16 +58,12 @@ class Router extends Component {
           height: 0,
         },
         style: {
-          height: scaleSize(88),
+          height: scaleSize(115),
           backgroundColor: '#fff',
-        },
-        iconStyle: {
-          width: scaleSize(40),
-          height: scaleSize(40),
         },
         labelStyle: {
           marginTop: scaleSize(0),
-          fontSize: scaleSize(20),
+          fontSize: scaleSize(25),
         },
       },
     });
@@ -103,7 +99,7 @@ class Router extends Component {
 
 function mapStateToProps(state) {
   return {
-   
+
   };
 }
 
