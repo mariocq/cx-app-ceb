@@ -14,8 +14,7 @@ class Mine extends Component {
         style={[styles.icon, { tintColor: tintColor }]}
       />
     ),
-  };
-
+  }
   render() {
     return (
       <View>
@@ -43,6 +42,7 @@ class Mine extends Component {
             </Item>
           </List>
         </View>
+
       </View>
     );
   }
