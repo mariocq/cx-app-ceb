@@ -9,7 +9,7 @@ import { scaleSize } from '../utils/ScreenUtil';
 import UserVerify from '../pages/userVerify';
 import CarType from '../pages/carType';
 import CarVin from '../pages/carVin';
-import Mine from '../pages/mine/Mine';
+import UserHome from '../pages/userHome';
 
 import Pages from '../config/routerConfig';
 
@@ -36,7 +36,7 @@ class Router extends Component {
         },
       },
       我的: {
-        screen: Mine,
+        screen: UserHome,
         navigationOptions: {
           header: null,
         },
@@ -45,7 +45,7 @@ class Router extends Component {
       tabBarPosition: 'bottom',
       animationEnabled: false,
       swipeEnabled: false,
-      initialRouteName: '身份认证',
+      initialRouteName: '我的',
       backBehavior: 'none',
       lazy: false, // 懒加载
       tabBarOptions: {
