@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import { Button, ActivityIndicator } from '@ant-design/react-native';
+import { Button, ActivityIndicator, Modal, Toast } from '@ant-design/react-native';
 import * as faceService from '../services/faceService';
-import SimpleAlert from '../component/SimpleAlert';
 
 const options = {
   title: '',
@@ -47,11 +46,10 @@ export default class ImagePickerExample extends React.Component {
           console.log(data);
           this.setState({ animating: !this.state.animating });
           if (data.error_code === 0) {
-            console.log(data.log_id);
-            SimpleAlert('识别成功','log_id：' + data.log_id);
+            Modal.alert('识别成功','log_id：' + data.log_id);
           }
           else {
-            SimpleAlert('识别失败','请稍后再试，' + data.error_msg);
+            Modal.alert('识别失败','请稍后再试，' + data.error_msg);
           }
         })
           .catch((error) => { console.error('error', error) });

@@ -1,11 +1,10 @@
+import { Button, Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import carVin from '../../assets/image/carVin.png';
+import ImagePicker from "../../component/ImagePicker";
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/ScreenUtil';
-import icon from '../../assets/image/home.png';
-import carVin from '../../assets/image/carVin.png';
-import { Button, WhiteSpace } from '@ant-design/react-native';
-import ImagePicker from "../../component/ImagePicker";
 
 class Home extends Component {
   static navigationOptions = {
@@ -60,3 +59,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Home);
+

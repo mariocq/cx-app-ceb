@@ -1,7 +1,7 @@
 import React from 'react';
 import dva from './utils/dva';
 import Router from './routes';
-
+import { Provider } from '@ant-design/react-native';
 import Home from './models/Home';
 import Mine from './models/Mine';
 
@@ -12,6 +12,6 @@ const app = dva({
   },
 });
 
-const App = app.start(<Router />);
-
+// 使用antd-mobile-rn的Provider包装
+const App = app.start(<Provider><Router /></Provider>);
 export default App;
