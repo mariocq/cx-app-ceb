@@ -54,23 +54,23 @@ const styles = StyleSheet.create({
     height: scaleSize(50),
   },
   title: {
-    padding: 10, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
+    padding: scaleSize(20), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
   },
   userWrap: {
     marginTop: 0
   },
   userBox: {
-    alignItems: 'center', justifyContent: 'flex-start', margin: 20, height: 150, backgroundColor: '#108ee9',
-    borderRadius: 5, flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end',
+    alignItems: 'center', justifyContent: 'flex-start', margin: scaleSize(40), height: scaleSize(300), backgroundColor: '#108ee9',
+    borderRadius: scaleSize(10), flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end',
   },
   userHead: {
-    tintColor: '#ffffff', marginLeft: 20,
+    tintColor: '#ffffff', marginLeft: scaleSize(40),
   },
   userName: {
-    fontSize: 16, color: '#FFFFFF', paddingLeft: 10, width: 250,
+    fontSize: 16, color: '#FFFFFF', paddingLeft: scaleSize(20), width: scaleSize(500),
   },
   userPhone: {
-    fontSize: 14, color: '#83cbff', marginLeft: 50, marginTop: 30
+    fontSize: 14, color: '#83cbff', marginLeft: scaleSize(80), marginTop: scaleSize(60)
   },
   menuWrap: {
     marginTop: 0,
