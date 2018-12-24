@@ -16,6 +16,9 @@ export function setpassword(values) {
 export function logout(values) {
   return request(IP.domain + '/api/user/logout', {
     method: 'POST',
+    headers: {
+      Authorization: values.access_token
+    },
     body: JSON.stringify(values),
   });
 }

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { List } from '@ant-design/react-native';
+import { List, Modal } from '@ant-design/react-native';
 import { connect } from 'react-redux';
 import { scaleSize } from '../../utils/screenUtil';
 import icon from '../../assets/image/mine.png';
 const Item = List.Item;
 
-class Mine extends Component {
+class UserHome extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Image
@@ -15,7 +15,31 @@ class Mine extends Component {
       />
     ),
   }
+  handleLogout() {
+    Modal.operation([
+      { text: '返回系统', style: { color: '#333' }},
+      { text: '确定退出', style: { color: 'red' }, onPress: () => {
+        this.props.dispatch({
+          type: `global/logout`,
+          payload: {
+            access_token: this.props.access_token
+          },
+          callback: (data) => {
+            if (data.error_code === 0) {
+              this.props.navigation.navigate('SignIn');
+            }
+          }
+        })
+      } },
+    ]);
+  }
   render() {
+    console.log(this.props.username);
+    console.log(this.props.access_token);
+    console.log(this.props.groups);
+    const { username, mobile, groups } = this.props;
+    const group = groups.map(item => item.desc).join(', ');
+
     return (
       <View>
         <View style={styles.title}>
@@ -24,9 +48,9 @@ class Mine extends Component {
         <View style={styles.userWrap}>
           <View style={styles.userBox}>
             <Image source={icon} style={styles.userHead}></Image>
-            <Text style={styles.userName}>登录名：张三十</Text>
-            <Text style={styles.userPhone}>电话：18930203929</Text>
-            <Text style={styles.userPhone}>岗位：巡检员</Text>
+            <Text style={styles.userName}>登录名：{username}</Text>
+            <Text style={styles.userPhone}>电话：{mobile}</Text>
+            <Text style={styles.userPhone}>岗位：{group}</Text>
           </View>
         </View>
         <View style={styles.menuWrap}>
@@ -39,6 +63,11 @@ class Mine extends Component {
             </Item>
             <Item arrow="horizontal" onPress={() => { }}>
               关于软件
+            </Item>
+          </List>
+          <List style={styles.logout}>
+            <Item arrow="horizontal" onPress={this.handleLogout.bind(this)}>
+              退出登录
             </Item>
           </List>
         </View>
@@ -75,6 +104,16 @@ const styles = StyleSheet.create({
   menuWrap: {
     marginTop: 0,
   },
+  logout: {
+    marginTop: scaleSize(20),
+  },
 });
 
-export default Mine;
+
+function mapStateToProps(state) {
+  return {
+    ...state.global,
+  };
+}
+
+export default connect(mapStateToProps)(UserHome);

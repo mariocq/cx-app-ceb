@@ -43,13 +43,18 @@ class Login extends Component {
     )
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     if (this.props.login) {
       this.props.navigation.navigate('身份认证');
     }
   }
 
   handleLogin() {
+    // 隐藏键盘
+    const dismissKeyboard = require('dismissKeyboard');
+    dismissKeyboard();
+
+    // 登录协议
     const { username, password } = this.state;
     if (username === '') {
       Toast.info('请输入用户名', 1, undefined, false);

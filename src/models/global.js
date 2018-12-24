@@ -6,14 +6,18 @@ export default {
     login: false,
     access_token: "",
     username: "",
+    mobile: "",
+    groups: [],
   },
   reducers: {
-    signok(state, { payload: { access_token, username } }) {
+    signok(state, { payload: { access_token, username, mobile, groups } }) {
       return {
         ...state,
         login: true,
         access_token,
         username,
+        mobile,
+        groups,
       };
     },
     signout(state, { }) {
@@ -22,6 +26,8 @@ export default {
         login: false,
         access_token: "",
         username: "",
+        mobile: "",
+        groups: [],
       };
     },
   },
@@ -40,16 +46,17 @@ export default {
         callback(data);
       }
     },
-    *logout({ payload }, { put, call }) {
+    *logout({ payload, callback }, { put, call }) {
       const { data } = yield call(usersService.logout, payload);
       if (data) {
         // 设置reducer
-        if (data.msg === "ok") {
+        if (data.error_code === 0) {
           // 退出成功
           yield put({
             type: 'signout',
           });
         }
+        callback(data);
       }
     },
   }
