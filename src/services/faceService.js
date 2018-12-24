@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
 export function fetchImage(values) {
-  return request('http://172.16.20.20:5000/api/face-detect', {
+  return request('http://120.79.44.187:5100/api/face-detect', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
