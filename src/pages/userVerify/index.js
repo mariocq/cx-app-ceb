@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/ScreenUtil';
+import { scaleSize } from '../../utils/screenUtil';
 import face from '../../assets/image/face.png';
 import { Button, Modal, Toast } from '@ant-design/react-native';
 import ImagePicker from "../../component/ImagePicker";

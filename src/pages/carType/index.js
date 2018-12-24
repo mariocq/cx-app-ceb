@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/ScreenUtil';
+import { scaleSize } from '../../utils/screenUtil';
 import carType from '../../assets/image/carType.png';
 import icon from '../../assets/image/home.png';
 import { Button, WhiteSpace } from '@ant-design/react-native';

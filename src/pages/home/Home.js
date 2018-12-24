@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/ScreenUtil';
+import { scaleSize } from '../../utils/screenUtil';
 import icon from '../../assets/image/home.png';
 import { FETCH_HOME_NAME } from '../../constants/ActionTypes';
 import { Icon, SearchBar, TabBar } from '@ant-design/react-native';

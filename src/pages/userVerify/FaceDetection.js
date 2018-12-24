@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/ScreenUtil';
+import { scaleSize } from '../../utils/screenUtil';
 
 class ActionDetection extends Component {
   static navigationOptions={

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { List } from '@ant-design/react-native';
 import { connect } from 'react-redux';
-import { scaleSize } from '../../utils/ScreenUtil';
+import { scaleSize } from '../../utils/screenUtil';
 import icon from '../../assets/image/mine.png';
 const Item = List.Item;
 

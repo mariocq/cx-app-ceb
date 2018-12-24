@@ -4,7 +4,7 @@ import {
 } from 'react-navigation';
 import { connect } from '../utils/dva';
 import React, { Component } from 'react';
-import { scaleSize } from '../utils/ScreenUtil';
+import { scaleSize } from '../utils/screenUtil';
 
 import UserVerify from '../pages/userVerify';
 import CarType from '../pages/carType';
@@ -42,53 +42,68 @@ class Router extends Component {
         },
       },
     }, {
-      tabBarPosition: 'bottom',
-      animationEnabled: false,
-      swipeEnabled: false,
-      initialRouteName: '我的',
-      backBehavior: 'none',
-      lazy: false, // 懒加载
-      tabBarOptions: {
-        activeTintColor: '#4396ec',
-        inactiveTintColor: '#b2b2b2',
-        showIcon: true,
-        showLabel: true,
-        pressColor: '#999',
-        indicatorStyle: {
-          height: 0,
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
+        initialRouteName: '身份认证',
+        backBehavior: 'none',
+        lazy: false, // 懒加载
+        tabBarOptions: {
+          activeTintColor: '#4396ec',
+          inactiveTintColor: '#b2b2b2',
+          showIcon: true,
+          showLabel: true,
+          pressColor: '#999',
+          indicatorStyle: {
+            height: 0,
+          },
+          style: {
+            height: scaleSize(115),
+            backgroundColor: '#fff',
+          },
+          labelStyle: {
+            marginTop: scaleSize(0),
+            fontSize: scaleSize(25),
+          },
         },
-        style: {
-          height: scaleSize(115),
-          backgroundColor: '#fff',
-        },
-        labelStyle: {
-          marginTop: scaleSize(0),
-          fontSize: scaleSize(25),
-        },
-      },
-    });
+      });
   }
 
   renderApp() {
     const Tabs = this.renderTabs();
-    return StackNavigator(
+    const Stacks = StackNavigator(
       {
         App: { screen: Tabs },
         ...Pages,
       },
       {
-        navigationOptions: {
-          gesturesEnabled: true,
-          headerStyle: {
-            // elevation: 0,
-            height: scaleSize(98),
-          },
-          headerTitleStyle: {
-            fontSize: scaleSize(36),
-          },
-        },
+        initialRouteName: 'Splash',
+        mode: 'card',
+        headerMode: 'none',
       },
     );
+    return Stacks;
+    // return StackNavigator(
+    //   {
+    //     App: { screen: Tabs },
+    //     ...Pages,
+    //   },
+    //   {
+    //     initialRouteName: 'Splash',
+    //     mode: 'card',
+    //     headerMode: 'none',
+    //     navigationOptions: {
+    //       gesturesEnabled: true,
+    //       headerStyle: {
+    //         // elevation: 0,
+    //         height: scaleSize(98),
+    //       },
+    //       headerTitleStyle: {
+    //         fontSize: scaleSize(36),
+    //       },
+    //     },
+    //   },
+    // );
   }
 
   componentDidMount() {
@@ -96,7 +111,7 @@ class Router extends Component {
     this._getPosition();
   }
 
-  _getPosition(){
+  _getPosition() {
     /** 获取地理位置 */
     navigator.geolocation.getCurrentPosition(
       (position) => {

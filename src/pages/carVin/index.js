@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import carVin from '../../assets/image/carVin.png';
 import ImagePicker from "../../component/ImagePicker";
 import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/ScreenUtil';
+import { scaleSize } from '../../utils/screenUtil';
 
 class Home extends Component {
   static navigationOptions = {
