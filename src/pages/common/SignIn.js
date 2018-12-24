@@ -4,13 +4,13 @@ import { Button, InputItem, List, Toast } from '@ant-design/react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
 
-class ActionDetection extends Component {
+class Login extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       password: '',
-      username: '',
+      username: 'administrator',
       loading: false,
     };
   }
@@ -43,6 +43,12 @@ class ActionDetection extends Component {
     )
   }
 
+  componentDidUpdate(){
+    if (this.props.login) {
+      this.props.navigation.navigate('身份认证');
+    }
+  }
+
   handleLogin() {
     const { username, password } = this.state;
     if (username === '') {
@@ -50,8 +56,21 @@ class ActionDetection extends Component {
     } else if (password === '') {
       Toast.info('请输入密码', 1, undefined, false);
     } else {
-      // 登录
-      this.props.navigation.navigate('身份认证');
+      const { dispatch } = this.props;
+      this.setState({ loading: true });
+      dispatch({
+        type: `global/login`,
+        payload: {
+          account: username,
+          pwd: password,
+        },
+        callback: (data) => {
+          this.setState({ loading: false });
+          if (data.error_code !== 0) {
+            Toast.fail('请检查用户名或密码，稍后再试');
+          }
+        }
+      })
     }
   }
 
@@ -116,5 +135,10 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapStateToProps(state) {
+  return {
+    login: state.global.login, // state 映射到 props
+  };
+}
 
-export default ActionDetection;
+export default connect(mapStateToProps)(Login);
