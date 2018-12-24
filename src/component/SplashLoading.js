@@ -14,7 +14,7 @@ const FADE_START = 0.3;
 // 等待时间
 const WAIT_TIME = 2000;
 
-export default class Splash extends Component {
+export default class SplashLoading extends Component {
 
   constructor(props) {
     super(props);

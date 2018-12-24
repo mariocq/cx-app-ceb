@@ -1,20 +1,19 @@
 import React from 'react';
-import Splash from "../../component/Splash";
+import SplashLoading from "../../component/SplashLoading";
 import { Text, View, StyleSheet } from 'react-native';
 import { scaleSize } from '../../utils/screenUtil';
 
 class Component extends React.Component {
   _animateEnd = () => {
     //动画完成的回调
-    console.log('go');
-    this.props.navigation.navigate('App');
+    this.props.navigation.navigate('SignIn');
   }
 
   render() {
     return (
       <View style={styles.wrapper}>
         <View style={styles.logo}>
-          <Splash
+          <SplashLoading
             source={require('../../assets/image/login-logo.png')}
             animateEnd={this._animateEnd}
             height={scaleSize(100)}

@@ -11,37 +11,27 @@ import CarType from '../pages/carType';
 import CarVin from '../pages/carVin';
 import UserHome from '../pages/userHome';
 
-import Pages from '../config/routerConfig';
+import Pages from './routerConfig';
 
 class Router extends Component {
 
   renderTabs() {
-    return TabNavigator({
-      身份认证: {
-        screen: UserVerify,
-        navigationOptions: {
-          header: null,
+    return TabNavigator(
+      {
+        身份认证: {
+          screen: UserVerify,
+        },
+        车型识别: {
+          screen: CarType,
+        },
+        车架号识别: {
+          screen: CarVin,
+        },
+        我的: {
+          screen: UserHome,
         },
       },
-      车型识别: {
-        screen: CarType,
-        navigationOptions: {
-          header: null,
-        },
-      },
-      车架号识别: {
-        screen: CarVin,
-        navigationOptions: {
-          header: null,
-        },
-      },
-      我的: {
-        screen: UserHome,
-        navigationOptions: {
-          header: null,
-        },
-      },
-    }, {
+      {
         tabBarPosition: 'bottom',
         animationEnabled: false,
         swipeEnabled: false,
@@ -73,7 +63,9 @@ class Router extends Component {
     const Tabs = this.renderTabs();
     const Stacks = StackNavigator(
       {
+        // 主界面配置
         App: { screen: Tabs },
+        // 其他通用界面配置
         ...Pages,
       },
       {
@@ -83,56 +75,6 @@ class Router extends Component {
       },
     );
     return Stacks;
-    // return StackNavigator(
-    //   {
-    //     App: { screen: Tabs },
-    //     ...Pages,
-    //   },
-    //   {
-    //     initialRouteName: 'Splash',
-    //     mode: 'card',
-    //     headerMode: 'none',
-    //     navigationOptions: {
-    //       gesturesEnabled: true,
-    //       headerStyle: {
-    //         // elevation: 0,
-    //         height: scaleSize(98),
-    //       },
-    //       headerTitleStyle: {
-    //         fontSize: scaleSize(36),
-    //       },
-    //     },
-    //   },
-    // );
-  }
-
-  componentDidMount() {
-    // APP启动的时候获取地理位置
-    this._getPosition();
-  }
-
-  _getPosition() {
-    /** 获取地理位置 */
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // console.warn('成功：' + JSON.stringify(position));
-        const positionData = position.coords;
-        // 经度：positionData.longitude
-        // 纬度：positionData.latitude
-        console.log(positionData);
-
-      },
-      (error) => {
-        console.warn('失败：' + JSON.stringify(error.message))
-      }, {
-        // 提高精确度，但是获取的速度会慢一点
-        enableHighAccuracy: true,
-        // 设置获取超时的时间20秒
-        timeout: 20000,
-        // 示应用程序的缓存时间，每次请求都是立即去获取一个全新的对象内容
-        maximumAge: 1000
-      }
-    )
   }
 
   render() {
