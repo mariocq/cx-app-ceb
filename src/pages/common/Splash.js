@@ -1,12 +1,22 @@
 import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import SplashLoading from "../../component/SplashLoading";
-import { Text, View, StyleSheet } from 'react-native';
+import navigationService from '../../utils/navigationService';
 import { scaleSize } from '../../utils/screenUtil';
 
 class Component extends React.Component {
   _animateEnd = () => {
-    //动画完成的回调
-    this.props.navigation.navigate('SignIn');
+    // 动画完成的回调
+
+    // 重置路由，去掉路由栈中启动页Splash
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'SignIn' })
+      ]
+    })
+    navigationService.dispatch(resetAction);
   }
 
   render() {

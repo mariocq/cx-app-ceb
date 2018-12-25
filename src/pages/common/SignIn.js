@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
 import { Button, InputItem, List, Toast } from '@ant-design/react-native';
+import React, { Component } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
 

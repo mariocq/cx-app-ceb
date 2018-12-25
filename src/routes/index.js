@@ -5,9 +5,10 @@ import CarVin from '../pages/carVin';
 import UserHome from '../pages/userHome';
 import UserVerify from '../pages/userVerify';
 import { connect } from '../utils/dva';
+import navigationService from '../utils/navigationService';
 import { scaleSize } from '../utils/screenUtil';
-import Pages from './routerConfig';
 import { storage } from '../utils/storage';
+import Pages from './routerConfig';
 
 
 class Router extends Component {
@@ -78,17 +79,19 @@ class Router extends Component {
     const AppNavigator = this.renderApp();
     return (
       <AppNavigator
+        ref={navigatorRef => {
+          navigationService.setTopLevelNavigator(navigatorRef);
+        }}
         onNavigationStateChange={(prevState, currentState) => {
           const currentScreen = getCurrentRouteName(currentState);
           const prevScreen = getCurrentRouteName(prevState);
 
           if (prevScreen !== currentScreen && currentScreen !== 'SignIn') {
             storage.load('accessToken', (data) => {
-              const accessToken = data
+              const accessToken = data;
+              // 未登录跳转
               if (accessToken === '') {
-                // 未登录跳转
-
-                // this.props.navigation.navigate('SignIn');
+                //
               }
             })
           }
