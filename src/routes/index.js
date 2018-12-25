@@ -1,17 +1,14 @@
-import {
-  StackNavigator,
-  TabNavigator,
-} from 'react-navigation';
-import { connect } from '../utils/dva';
 import React, { Component } from 'react';
-import { scaleSize } from '../utils/screenUtil';
-
-import UserVerify from '../pages/userVerify';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import CarType from '../pages/carType';
 import CarVin from '../pages/carVin';
 import UserHome from '../pages/userHome';
-
+import UserVerify from '../pages/userVerify';
+import { connect } from '../utils/dva';
+import { scaleSize } from '../utils/screenUtil';
 import Pages from './routerConfig';
+import { storage } from '../utils/storage';
+
 
 class Router extends Component {
 
@@ -79,13 +76,40 @@ class Router extends Component {
 
   render() {
     const AppNavigator = this.renderApp();
-    return <AppNavigator />;
+    return (
+      <AppNavigator
+        onNavigationStateChange={(prevState, currentState) => {
+          const currentScreen = getCurrentRouteName(currentState);
+          const prevScreen = getCurrentRouteName(prevState);
+
+          if (prevScreen !== currentScreen && currentScreen !== 'SignIn') {
+            storage.load('accessToken', (data) => {
+              const accessToken = data
+              if (accessToken === '') {
+                // 未登录跳转
+
+                // this.props.navigation.navigate('SignIn');
+              }
+            })
+          }
+        }}
+      />);
   }
+}
+function getCurrentRouteName(navigationState) {
+  if (!navigationState) {
+    return null;
+  }
+  const route = navigationState.routes[navigationState.index];
+  // dive into nested navigators
+  if (route.routes) {
+    return getCurrentRouteName(route);
+  }
+  return route.routeName;
 }
 
 function mapStateToProps(state) {
   return {
-
   };
 }
 

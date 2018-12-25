@@ -1,4 +1,5 @@
 import * as usersService from '../services/users';
+import { storage } from '../utils/storage';
 
 export default {
   namespace: 'global',
@@ -42,6 +43,8 @@ export default {
             type: 'signok',
             payload: data,
           });
+          // 本地存储access_token
+          storage.save('accessToken', data.access_token)
         }
         callback(data);
       }
@@ -55,6 +58,8 @@ export default {
           yield put({
             type: 'signout',
           });
+          // 本地存储access_token
+          storage.save('accessToken', '')
         }
         callback(data);
       }

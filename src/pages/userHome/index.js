@@ -34,9 +34,6 @@ class UserHome extends Component {
     ]);
   }
   render() {
-    console.log(this.props.username);
-    console.log(this.props.access_token);
-    console.log(this.props.groups);
     const { username, mobile, groups } = this.props;
     const group = groups.map(item => item.desc).join(', ');
 

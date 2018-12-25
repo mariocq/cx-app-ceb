@@ -27,7 +27,7 @@ class Login extends Component {
         const positionData = position.coords;
         // 经度：positionData.longitude
         // 纬度：positionData.latitude
-        console.log(positionData);
+        // console.log(positionData);
 
       },
       (error) => {
