@@ -21,6 +21,10 @@ function setTopLevelNavigator(navigatorRef) {
   _navigator = navigatorRef;
 }
 
+function getTopLevelNavigator() {
+  return _navigator;
+}
+
 /**
  * 导航到目标路由/屏幕
  * @param routeName
@@ -48,4 +52,5 @@ export default {
   dispatch,
   navigate,
   setTopLevelNavigator,
+  getTopLevelNavigator,
 };

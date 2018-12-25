@@ -1,5 +1,6 @@
 import { Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
+import { ToastAndroid, BackHandler } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import CarType from '../pages/carType';
 import CarVin from '../pages/carVin';
@@ -13,7 +14,30 @@ import Pages from './routerConfig';
 
 
 class Router extends Component {
-
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+  }
+  onBackAndroid = () => {
+    if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+      // 退出登录
+      storage.load('accessToken', (accessToken) => {
+        this.props.dispatch({
+          type: `global/logout`,
+          payload: {
+            access_token: accessToken
+          },
+          callback: () => {}
+        })
+      })
+      return false;
+    }
+    this.lastBackPressed = Date.now();
+    ToastAndroid.show('再按一次退出应用', 1000);
+    return true;
+  }
   renderTabs() {
     return TabNavigator(
       {

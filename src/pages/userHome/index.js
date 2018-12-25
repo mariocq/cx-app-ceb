@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
 import { List, Modal } from '@ant-design/react-native';
+import React, { Component } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { scaleSize } from '../../utils/screenUtil';
 import icon from '../../assets/image/mine.png';
+import navigationService from '../../utils/navigationService';
+import { scaleSize } from '../../utils/screenUtil';
 const Item = List.Item;
 
 class UserHome extends Component {
@@ -17,20 +19,31 @@ class UserHome extends Component {
   }
   handleLogout() {
     Modal.operation([
-      { text: '返回系统', style: { color: '#333' }},
-      { text: '确定退出', style: { color: 'red' }, onPress: () => {
-        this.props.dispatch({
-          type: `global/logout`,
-          payload: {
-            access_token: this.props.access_token
-          },
-          callback: (data) => {
-            if (data.error_code === 0) {
-              this.props.navigation.navigate('SignIn');
+      { text: '返回系统', style: { color: '#333' } },
+      {
+        text: '确定退出', style: { color: 'red' }, onPress: () => {
+          this.props.dispatch({
+            type: `global/logout`,
+            payload: {
+              access_token: this.props.access_token
+            },
+            callback: (data) => {
+              if (data.error_code === 0) {
+
+                // 重置路由，路由栈顶层设置为“SignIn”，防止back键
+                const resetAction = NavigationActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({ routeName: 'SignIn' })
+                  ]
+                })
+                navigationService.dispatch(resetAction);
+
+              }
             }
-          }
-        })
-      } },
+          })
+        }
+      },
     ]);
   }
   render() {
