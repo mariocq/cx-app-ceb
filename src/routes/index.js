@@ -1,3 +1,4 @@
+import { Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import CarType from '../pages/carType';
@@ -83,15 +84,20 @@ class Router extends Component {
           navigationService.setTopLevelNavigator(navigatorRef);
         }}
         onNavigationStateChange={(prevState, currentState) => {
+          // 监听change事件
           const currentScreen = getCurrentRouteName(currentState);
           const prevScreen = getCurrentRouteName(prevState);
 
+          // 判断目标页面，只检测非登录页面
           if (prevScreen !== currentScreen && currentScreen !== 'SignIn') {
-            storage.load('accessToken', (data) => {
-              const accessToken = data;
+
+            // 获取并判断本地存储token
+            storage.load('accessToken', (accessToken) => {
               // 未登录跳转
               if (accessToken === '') {
-                //
+                Modal.alert('提示', '请先登录！', [
+                  { text: 'OK', onPress: () => navigationService.navigate('SignIn') },
+                ]);
               }
             })
           }
