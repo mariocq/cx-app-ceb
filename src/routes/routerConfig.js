@@ -1,16 +1,18 @@
-import HomeNext from '../pages/home/HomeNext';
-import ActionDetection from '../pages/userVerify/ActionDetection';
-import FaceDetection from '../pages/userVerify/FaceDetection';
+import ModifyPassword from '../pages/common/ModifyPassword';
+import About from '../pages/common/About';
 import SignIn from '../pages/common/SignIn';
 import Splash from '../pages/common/Splash';
+
+// 隐藏header
+const navigationOptions = { header: null };
 
 /**
  * 页面配置
  */
 export default {
-  HomeNext: { screen: HomeNext },
-  ActionDetection: { screen: ActionDetection },
-  FaceDetection: { screen: FaceDetection },
-  SignIn: { screen: SignIn },
-  Splash: { screen: Splash },
+  ModifyPassword: { screen: ModifyPassword },
+  About: { screen: About },
+  SignIn: { screen: SignIn, navigationOptions },
+  Splash: { screen: Splash, navigationOptions },
 };
+

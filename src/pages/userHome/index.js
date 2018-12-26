@@ -46,6 +46,12 @@ class UserHome extends Component {
       },
     ]);
   }
+  handleGotoPassword(){
+    navigationService.navigate('ModifyPassword');
+  }
+  handleGotoAbout(){
+    navigationService.navigate('About');
+  }
   render() {
     const { username, mobile, groups } = this.props;
     const group = groups.map(item => item.desc).join(', ');
@@ -65,13 +71,10 @@ class UserHome extends Component {
         </View>
         <View style={styles.menuWrap}>
           <List>
-            <Item arrow="horizontal" onPress={() => { }}>
-              登录日志
-            </Item>
-            <Item arrow="horizontal" onPress={() => { }}>
+            <Item arrow="horizontal" onPress={this.handleGotoPassword.bind(this)}>
               修改密码
             </Item>
-            <Item arrow="horizontal" onPress={() => { }}>
+            <Item arrow="horizontal" onPress={this.handleGotoAbout.bind(this)}>
               关于软件
             </Item>
           </List>

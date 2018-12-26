@@ -29,7 +29,7 @@ class Router extends Component {
           payload: {
             access_token: accessToken
           },
-          callback: () => {}
+          callback: () => { }
         })
       })
       return false;
@@ -87,14 +87,22 @@ class Router extends Component {
     const Stacks = StackNavigator(
       {
         // 主界面配置
-        App: { screen: Tabs },
+        App: {
+          screen: Tabs,
+          navigationOptions: {
+            header: null,
+          }
+        },
         // 其他通用界面配置
         ...Pages,
       },
       {
         initialRouteName: 'Splash',
         mode: 'card',
-        headerMode: 'none',
+        headerMode: 'screen',
+        navigationOptions: {
+          headerTitleStyle:{ fontSize: scaleSize(30), fontWeight: 'normal' }
+        }
       },
     );
     return Stacks;
