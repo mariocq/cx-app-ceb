@@ -6,17 +6,17 @@ export default {
   state: {
     login: false,
     access_token: "",
-    username: "",
+    account: "",
     mobile: "",
     groups: [],
   },
   reducers: {
-    signok(state, { payload: { access_token, username, mobile, groups } }) {
+    signok(state, { payload: { access_token, account, mobile, groups } }) {
       return {
         ...state,
         login: true,
         access_token,
-        username,
+        account,
         mobile,
         groups,
       };
@@ -26,7 +26,7 @@ export default {
         ...state,
         login: false,
         access_token: "",
-        username: "",
+        account: "",
         mobile: "",
         groups: [],
       };
@@ -35,8 +35,6 @@ export default {
   effects: {
     *login({ payload, callback }, { call, put }) {
       let { data } = yield call(usersService.login, payload);
-      console.log(data);
-
       if (data) {
         // 设置reducer
         if (data.error_code === 0) {
@@ -63,6 +61,12 @@ export default {
           // 本地存储access_token
           storage.save('accessToken', '')
         }
+        callback(data);
+      }
+    },
+    *resetPassword({ payload, callback }, { call }) {
+      const { data } = yield call(usersService.resetPassword, payload);
+      if (data) {
         callback(data);
       }
     },

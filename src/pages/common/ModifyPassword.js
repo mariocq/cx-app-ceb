@@ -38,11 +38,16 @@ class Component extends React.Component {
         payload: {
           old: passwordOld,
           new: passwordNew,
+          account: this.props.account,
+          access_token: this.props.access_token,
         },
         callback: (data) => {
           this.setState({ loading: false });
           if (data.error_code === 0) {
             Toast.success('修改成功，请牢记您的新密码！');
+          }
+          else{
+            Toast.info('修改失败，' + data.error_msg);
           }
         }
       })
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    login: state.global.login, // state 映射到 props
+    ...state.global,
   };
 }
 
