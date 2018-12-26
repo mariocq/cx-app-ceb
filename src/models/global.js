@@ -35,6 +35,8 @@ export default {
   effects: {
     *login({ payload, callback }, { call, put }) {
       let { data } = yield call(usersService.login, payload);
+      console.log(data);
+
       if (data) {
         // 设置reducer
         if (data.error_code === 0) {
