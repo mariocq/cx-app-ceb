@@ -5,8 +5,9 @@ import { scaleSize } from '../../utils/screenUtil';
 import face from '../../assets/image/face.png';
 import { Button, Modal, Toast } from '@ant-design/react-native';
 import ImagePicker from "../../component/ImagePicker";
+import * as faceService from '../../services/faceService';
 
-class Home extends Component {
+class UserVerify extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Image
@@ -34,7 +35,11 @@ class Home extends Component {
           <Text>您当前暂未通过身份认证</Text>
           <Image source={face} style={styles.bgImg}></Image>
         </View>
-        <ImagePicker />
+        <ImagePicker
+          reqMatch={faceService.faceMatch}
+          access_token={this.props.access_token}
+          account={this.props.account}
+        />
       </View>
     );
   }
@@ -58,8 +63,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    name: state.home.name, // state 映射到 props
+    ...state.global,
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(UserVerify);
