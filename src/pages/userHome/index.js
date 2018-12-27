@@ -46,14 +46,14 @@ class UserHome extends Component {
       },
     ]);
   }
-  handleGotoPassword(){
+  handleGotoPassword() {
     navigationService.navigate('ModifyPassword');
   }
-  handleGotoAbout(){
+  handleGotoAbout() {
     navigationService.navigate('About');
   }
   render() {
-    const { username, mobile, groups } = this.props;
+    const { account, username, mobile, groups } = this.props;
     const group = groups.map(item => item.desc).join(', ');
 
     return (
@@ -63,10 +63,17 @@ class UserHome extends Component {
         </View>
         <View style={styles.userWrap}>
           <View style={styles.userBox}>
-            <Image source={icon} style={styles.userHead}></Image>
-            <Text style={styles.userName}>登录名：{username}</Text>
-            <Text style={styles.userPhone}>电话：{mobile}</Text>
-            <Text style={styles.userPhone}>岗位：{group}</Text>
+            <View style={styles.imgBox}>
+              <Image source={icon} style={styles.userHead}></Image>
+            </View>
+            <View style={styles.infoBox}>
+              <Text style={styles.userName}>用户名：{username}</Text>
+              <Text style={styles.loginName}>登录名：{account}</Text>
+            </View>
+            <View style={styles.phoneBox}>
+              <Text style={styles.userGroup}>岗位：{group}</Text>
+              <Text style={styles.userPhone}>电话：{mobile ? mobile : "暂无"}</Text>
+            </View>
           </View>
         </View>
         <View style={styles.menuWrap}>
@@ -105,14 +112,29 @@ const styles = StyleSheet.create({
     alignItems: 'center', justifyContent: 'flex-start', margin: scaleSize(40), height: scaleSize(300), backgroundColor: '#108ee9',
     borderRadius: scaleSize(10), flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end',
   },
+  imgBox: {
+    marginLeft: scaleSize(40),
+  },
+  infoBox: {
+    marginLeft: scaleSize(40),
+  },
+  phoneBox: {
+    marginLeft: scaleSize(80), marginTop: scaleSize(60), flexDirection: 'row',
+  },
   userHead: {
-    tintColor: '#ffffff', marginLeft: scaleSize(40),
+    tintColor: '#ffffff',
   },
   userName: {
-    fontSize: 16, color: '#FFFFFF', paddingLeft: scaleSize(20), width: scaleSize(500),
+    fontSize: 16, color: '#FFFFFF', width: scaleSize(500),
+  },
+  loginName: {
+    fontSize: 14, color: '#83cbff', width: scaleSize(500),
+  },
+  userGroup: {
+    fontSize: 14, color: '#83cbff',
   },
   userPhone: {
-    fontSize: 14, color: '#83cbff', marginLeft: scaleSize(80), marginTop: scaleSize(60)
+    fontSize: 14, color: '#83cbff', paddingLeft: scaleSize(80)
   },
   menuWrap: {
     marginTop: 0,

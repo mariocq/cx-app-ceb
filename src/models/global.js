@@ -7,16 +7,18 @@ export default {
     login: false,
     access_token: "",
     account: "",
+    username: "",
     mobile: "",
     groups: [],
   },
   reducers: {
-    signok(state, { payload: { access_token, account, mobile, groups } }) {
+    signok(state, { payload: { access_token, username, account, mobile, groups } }) {
       return {
         ...state,
         login: true,
         access_token,
         account,
+        username,
         mobile,
         groups,
       };
@@ -27,6 +29,7 @@ export default {
         login: false,
         access_token: "",
         account: "",
+        username: "",
         mobile: "",
         groups: [],
       };
