@@ -10,3 +10,21 @@ export function faceMatch(values) {
     body: JSON.stringify(values),
   });
 }
+export function typeMatch(values) {
+  return request(IP.domain + '/api/car/detect', {
+    method: 'POST',
+    headers: {
+      Authorization: values.access_token
+    },
+    body: JSON.stringify(values),
+  });
+}
+export function vinMatch(values) {
+  return request(IP.domain + '/api/car/vin', {
+    method: 'POST',
+    headers: {
+      Authorization: values.access_token
+    },
+    body: JSON.stringify(values),
+  });
+}

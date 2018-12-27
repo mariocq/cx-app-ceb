@@ -62,7 +62,7 @@ export default class ImagePickerExample extends React.Component {
           // 识别结果
           this.setState({ animating: !this.state.animating });
           if (data.error_code === 0) {
-            Modal.alert('识别成功', 'log_id：' + data.log_id);
+            this.props.resultAlert(data);
           }
           else {
             Modal.alert('识别失败', '请稍后再试，' + data.error_msg);

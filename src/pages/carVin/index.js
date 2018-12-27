@@ -1,12 +1,13 @@
-import { Button, Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import carVin from '../../assets/image/carVin.png';
 import ImagePicker from "../../component/ImagePicker";
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
+import * as faceService from '../../services/faceService';
+import { Modal } from '@ant-design/react-native';
 
-class Home extends Component {
+class CarVin extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Image
@@ -16,11 +17,13 @@ class Home extends Component {
     ),
   };
 
-  onSubimt() {
-    console.log('submit');
-
+  resultAlert(data) {
+    const result = data.words_result.length > 0 ? data.words_result[0].words : '暂无'
+    Modal.alert('识别结果',
+      `log_id：${data.log_id} \n\n` +
+      `VIN码：${result}`
+    );
   }
-
   render() {
     return (
       <View>
@@ -30,7 +33,13 @@ class Home extends Component {
         <View style={styles.bg}>
           <Image source={carVin} style={styles.bgImg}></Image>
         </View>
-        <ImagePicker />
+
+        <ImagePicker
+          reqMatch={faceService.vinMatch}
+          resultAlert={this.resultAlert}
+          access_token={this.props.access_token}
+          account={this.props.account}
+        />
       </View>
     );
   }
@@ -54,9 +63,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    name: state.home.name, // state 映射到 props
+    ...state.global,
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(CarVin);
 

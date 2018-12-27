@@ -16,15 +16,9 @@ class UserVerify extends Component {
       />
     ),
   };
-
-  goAction() {
-    this.props.navigation.navigate('ActionDetection');
+  resultAlert(data){
+    Modal.alert('人脸识别成功', 'log_id：' + data.log_id);
   }
-
-  goFace() {
-    this.props.navigation.navigate('FaceDetection');
-  }
-
   render() {
     return (
       <View>
@@ -37,6 +31,7 @@ class UserVerify extends Component {
         </View>
         <ImagePicker
           reqMatch={faceService.faceMatch}
+          resultAlert={this.resultAlert}
           access_token={this.props.access_token}
           account={this.props.account}
         />

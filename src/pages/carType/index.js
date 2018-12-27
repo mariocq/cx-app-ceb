@@ -4,10 +4,11 @@ import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
 import carType from '../../assets/image/carType.png';
 import icon from '../../assets/image/home.png';
-import { Button, WhiteSpace } from '@ant-design/react-native';
+import { Modal } from '@ant-design/react-native';
 import ImagePicker from "../../component/ImagePicker";
+import * as faceService from '../../services/faceService';
 
-class Home extends Component {
+class CarType extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Image
@@ -17,12 +18,13 @@ class Home extends Component {
     ),
   };
 
-  goAction() {
-    this.props.navigation.navigate('ActionDetection');
-  }
-
-  goFace() {
-    this.props.navigation.navigate('FaceDetection');
+  resultAlert(data){
+    Modal.alert('识别结果',
+      `log_id：${data.log_id} \n\n` +
+      `车型：${data.result[0].name} \n` +
+      `年份：${data.result[0].year} \n` +
+      `颜色：${data.color_result}`
+    );
   }
 
   render() {
@@ -34,7 +36,13 @@ class Home extends Component {
         <View style={styles.bg}>
           <Image source={carType} style={styles.bgImg}></Image>
         </View>
-        <ImagePicker />
+
+        <ImagePicker
+          reqMatch={faceService.typeMatch}
+          resultAlert={this.resultAlert}
+          access_token={this.props.access_token}
+          account={this.props.account}
+        />
       </View>
     );
   }
@@ -58,8 +66,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    name: state.home.name, // state 映射到 props
+    ...state.global,
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(CarType);
