@@ -52,6 +52,9 @@ class UserHome extends Component {
   handleGotoAbout() {
     navigationService.navigate('About');
   }
+  handleGotoMapFence() {
+    navigationService.navigate('MapFence');
+  }
   render() {
     const { account, username, mobile, groups } = this.props;
     const group = groups.map(item => item.desc).join(', ');
@@ -78,6 +81,9 @@ class UserHome extends Component {
         </View>
         <View style={styles.menuWrap}>
           <List>
+            <Item arrow="horizontal" onPress={this.handleGotoMapFence.bind(this)}>
+              电子围栏
+            </Item>
             <Item arrow="horizontal" onPress={this.handleGotoPassword.bind(this)}>
               修改密码
             </Item>
