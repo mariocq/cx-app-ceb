@@ -116,6 +116,12 @@ android {
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
             }
         }
+        example {
+            storeFile file("android.keystore")
+            storePassword "abc111222333"
+            keyAlias "android.keystore"
+            keyPassword "abc111222333"
+        }
     }
     splits {
         abi {
@@ -126,10 +132,13 @@ android {
         }
     }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.example
+        }
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.example
         }
     }
     // applicationVariants are e.g. debug, release
@@ -152,6 +161,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-baidumap-sdk')
     compile project(':react-native-image-picker')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
