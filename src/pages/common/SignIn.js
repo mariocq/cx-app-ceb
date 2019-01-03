@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
+import locationService from '../../utils/locationService';
 
 class Login extends Component {
 
@@ -14,33 +15,10 @@ class Login extends Component {
       loading: false,
     };
   }
-  componentDidMount() {
-    // APP启动的时候获取地理位置
-    this._getPosition();
-  }
 
-  _getPosition() {
-    /** 获取地理位置 */
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // console.warn('成功：' + JSON.stringify(position));
-        const positionData = position.coords;
-        // 经度：positionData.longitude
-        // 纬度：positionData.latitude
-        // console.log(positionData);
-
-      },
-      (error) => {
-        console.warn('失败：' + JSON.stringify(error.message))
-      }, {
-        // 提高精确度，但是获取的速度会慢一点
-        enableHighAccuracy: true,
-        // 设置获取超时的时间20秒
-        timeout: 20000,
-        // 示应用程序的缓存时间，每次请求都是立即去获取一个全新的对象内容
-        maximumAge: 1000
-      }
-    )
+  componentDidMount(){
+    // 初始化位置
+    locationService.initLocation();
   }
 
   componentDidUpdate() {

@@ -45,13 +45,7 @@ export default class ImagePickerExample extends React.Component {
           'image': response.data,
           'access_token': this.props.access_token,
           'account': this.props.account,
-          'location': {
-            "accuracy": 0,
-            "heading": 0,
-            "speed": 0,
-            "longitude": -18.5333,
-            "latitude": 65.9667
-          }
+          'location': this.props.location,
         }
 
         // 请求API

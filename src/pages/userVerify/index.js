@@ -4,6 +4,7 @@ import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
 import face from '../../assets/image/face.png';
 import { Button, Modal, Toast } from '@ant-design/react-native';
+import locationService from '../../utils/locationService';
 import ImagePicker from "../../component/ImagePicker";
 import * as faceService from '../../services/faceService';
 
@@ -31,6 +32,7 @@ class UserVerify extends Component {
         </View>
         <ImagePicker
           reqMatch={faceService.faceMatch}
+          location={locationService.getPosition()}
           resultAlert={this.resultAlert}
           access_token={this.props.access_token}
           account={this.props.account}
