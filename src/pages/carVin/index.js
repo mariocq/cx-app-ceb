@@ -6,6 +6,7 @@ import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
 import * as faceService from '../../services/faceService';
 import { Modal } from '@ant-design/react-native';
+import locationService from '../../utils/locationService';
 
 class CarVin extends Component {
   static navigationOptions = {
@@ -36,6 +37,7 @@ class CarVin extends Component {
 
         <ImagePicker
           reqMatch={faceService.vinMatch}
+          location={locationService.getPosition()}
           resultAlert={this.resultAlert}
           access_token={this.props.access_token}
           account={this.props.account}

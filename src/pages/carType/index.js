@@ -7,6 +7,7 @@ import icon from '../../assets/image/home.png';
 import { Modal } from '@ant-design/react-native';
 import ImagePicker from "../../component/ImagePicker";
 import * as faceService from '../../services/faceService';
+import locationService from '../../utils/locationService';
 
 class CarType extends Component {
   static navigationOptions = {
@@ -39,6 +40,7 @@ class CarType extends Component {
 
         <ImagePicker
           reqMatch={faceService.typeMatch}
+          location={locationService.getPosition()}
           resultAlert={this.resultAlert}
           access_token={this.props.access_token}
           account={this.props.account}
