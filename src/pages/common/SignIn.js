@@ -4,6 +4,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
 import locationService from '../../utils/locationService';
+import deviceInfo from 'react-native-device-info';
 
 class Login extends Component {
 
@@ -16,9 +17,20 @@ class Login extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    const { dispatch } = this.props;
     // 初始化位置
     locationService.initLocation();
+    // 初始化设备信息
+    const device = {};
+    device.DeviceID = deviceInfo.getUniqueID();
+    device.UserAgent = deviceInfo.getUserAgent();
+    device.DeviceBrand = deviceInfo.getBrand();
+    device.DeviceModel = deviceInfo.getModel();
+    device.PhoneNumber = deviceInfo.getPhoneNumber();
+    device.Timezone = deviceInfo.getTimezone();
+    device.AppVersion = deviceInfo.getVersion();
+    device.AppReadableVersion = deviceInfo.getReadableVersion();
   }
 
   componentDidUpdate() {

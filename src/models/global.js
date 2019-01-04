@@ -10,6 +10,7 @@ export default {
     username: "",
     mobile: "",
     groups: [],
+    device: null,
   },
   reducers: {
     signok(state, { payload: { access_token, username, account, mobile, groups } }) {
@@ -32,6 +33,12 @@ export default {
         username: "",
         mobile: "",
         groups: [],
+      };
+    },
+    device(state, { payload }) {
+      return {
+        ...state,
+        device: payload,
       };
     },
   },
@@ -72,6 +79,12 @@ export default {
       if (data) {
         callback(data);
       }
+    },
+    *deviceInit({ payload }, { put, call }) {
+      yield put({
+        type: 'device',
+        payload: payload,
+      });
     },
   }
 }
