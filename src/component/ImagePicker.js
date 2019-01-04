@@ -46,7 +46,10 @@ export default class ImagePickerExample extends React.Component {
           'access_token': this.props.access_token,
           'account': this.props.account,
           'location': this.props.location,
+          'device': this.props.device,
         }
+
+        console.log("req", request);
 
         // 请求API
         const res = this.props.reqMatch(request);

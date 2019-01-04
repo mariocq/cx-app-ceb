@@ -35,6 +35,7 @@ class UserVerify extends Component {
           location={locationService.getPosition()}
           resultAlert={this.resultAlert}
           access_token={this.props.access_token}
+          device={this.props.device}
           account={this.props.account}
         />
       </View>

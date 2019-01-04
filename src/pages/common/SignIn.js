@@ -31,6 +31,10 @@ class Login extends Component {
     device.Timezone = deviceInfo.getTimezone();
     device.AppVersion = deviceInfo.getVersion();
     device.AppReadableVersion = deviceInfo.getReadableVersion();
+    dispatch({
+      type: `global/deviceInit`,
+      payload: device,
+    })
   }
 
   componentDidUpdate() {
