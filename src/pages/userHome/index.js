@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
     borderRadius: scaleSize(10), flexDirection: 'row', flexWrap: 'wrap', alignContent: 'flex-end',
   },
   imgBox: {
-    marginLeft: scaleSize(40),
+    marginLeft: scaleSize(30),
   },
   infoBox: {
-    marginLeft: scaleSize(40),
+    marginLeft: scaleSize(30),
   },
   phoneBox: {
     marginLeft: scaleSize(80), marginTop: scaleSize(60), flexDirection: 'row',
