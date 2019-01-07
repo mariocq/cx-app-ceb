@@ -1,63 +1,39 @@
-import { Button, InputItem, List, Toast } from '@ant-design/react-native';
+import { Button, Checkbox, InputItem, List, Toast } from '@ant-design/react-native';
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
-import locationService from '../../utils/locationService';
-import deviceInfo from 'react-native-device-info';
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      accout: 'administrator',
+      username: '张三',
+      mobile: '18600000000',
       password: '',
-      username: 'administrator',
       loading: false,
     };
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    // 初始化位置
-    locationService.initLocation();
-    // 初始化设备信息
-    const device = {};
-    device.DeviceID = deviceInfo.getUniqueID();
-    device.UserAgent = deviceInfo.getUserAgent();
-    device.DeviceBrand = deviceInfo.getBrand();
-    device.DeviceModel = deviceInfo.getModel();
-    device.PhoneNumber = deviceInfo.getPhoneNumber();
-    device.Timezone = deviceInfo.getTimezone();
-    device.AppVersion = deviceInfo.getVersion();
-    device.AppReadableVersion = deviceInfo.getReadableVersion();
-    dispatch({
-      type: `global/deviceInit`,
-      payload: device,
-    })
-  }
-
-  componentDidUpdate() {
-    if (this.props.login) {
-      this.props.navigation.navigate('身份认证');
-    }
-  }
-
-  gotoRegister() {
-    this.props.navigation.navigate('Register');
-  }
-
-  handleLogin() {
+  handleRegister() {
     // 隐藏键盘
     const dismissKeyboard = require('dismissKeyboard');
     dismissKeyboard();
 
     // 登录协议
-    const { username, password } = this.state;
-    if (username === '') {
+    const { username, password, accout, mobile, checkBoxUserAgreement } = this.state;
+    if (accout === '') {
       Toast.info('请输入用户名', 1, undefined, false);
     } else if (password === '') {
       Toast.info('请输入密码', 1, undefined, false);
+    } else if (username === '') {
+      Toast.info('请输入真实姓名', 1, undefined, false);
+    } else if (mobile === '') {
+      Toast.info('请输入手机号码', 1, undefined, false);
+    } else if (!checkBoxUserAgreement) {
+      Toast.info('请勾选用户协议', 1, undefined, false);
     } else {
       const { dispatch } = this.props;
       this.setState({ loading: true });
@@ -80,17 +56,12 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <Image
-          style={styles.imgLogo}
-          source={require('../../assets/image/login-logo.png')}
-          resizeMode='contain'
-        />
-        <List style={styles.form} renderHeader={'请登录'}>
+        <List style={styles.form} renderHeader={'注册'}>
           <InputItem
-            value={this.state.username}
+            value={this.state.accout}
             onChange={value => {
               this.setState({
-                username: value,
+                accout: value,
               });
             }}
             placeholder="您的登录用户名"
@@ -109,12 +80,42 @@ class Login extends Component {
           >
             密码
           </InputItem>
+          <InputItem
+            value={this.state.username}
+            onChange={value => {
+              this.setState({
+                username: value,
+              });
+            }}
+            placeholder="请输入真实姓名"
+          >
+            真实姓名
+          </InputItem>
+          <InputItem
+            value={this.state.mobile}
+            onChange={value => {
+              this.setState({
+                mobile: value,
+              });
+            }}
+            placeholder="请输入手机号码"
+          >
+            手机号码
+          </InputItem>
         </List>
         <View>
-          <Button style={styles.btnLogin} type="primary" loading={this.state.loading} onPress={this.handleLogin.bind(this)}>登录</Button>
+          <Checkbox
+            style={styles.text}
+            checked={this.state.checkBoxUserAgreement}
+            onChange={event => {
+              this.setState({ checkBoxUserAgreement: event.target.checked });
+            }}
+          >
+            <Text style={styles.text} onPress={this.handleRegister.bind(this)}>我已阅读《用户协议》</Text>
+          </Checkbox>
         </View>
         <View>
-          <Button style={styles.btnReg} onPress={this.gotoRegister.bind(this)}>注册新用户</Button>
+          <Button style={styles.btn} type="primary" loading={this.state.loading} onPress={this.handleRegister.bind(this)}>注册</Button>
         </View>
       </View>
     );
@@ -124,22 +125,17 @@ class Login extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   form: {
-    width: scaleSize(600),
+    width: scaleSize(750),
     marginBottom: scaleSize(40),
   },
-  imgLogo: {
-    height: scaleSize(80),
-    marginBottom: scaleSize(80),
+  text: {
+    color: "#999",
+    marginTop: scaleSize(-10)
   },
-  btnLogin: {
-    height: scaleSize(80),
-    width: scaleSize(600),
-  },
-  btnReg: {
+  btn: {
     marginTop: scaleSize(20),
     height: scaleSize(80),
     width: scaleSize(600),

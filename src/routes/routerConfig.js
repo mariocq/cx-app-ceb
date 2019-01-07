@@ -2,6 +2,7 @@ import ModifyPassword from '../pages/common/ModifyPassword';
 import About from '../pages/common/About';
 import SignIn from '../pages/common/SignIn';
 import Splash from '../pages/common/Splash';
+import Register from '../pages/common/Register';
 import MapFence from '../pages/mapFence';
 
 // 隐藏header
@@ -16,5 +17,6 @@ export default {
   MapFence: { screen: MapFence },
   SignIn: { screen: SignIn, navigationOptions },
   Splash: { screen: Splash, navigationOptions },
+  Register: { screen: Register, navigationOptions },
 };
 
