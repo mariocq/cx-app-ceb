@@ -121,7 +121,9 @@ class Router extends Component {
           const prevScreen = getCurrentRouteName(prevState);
 
           // 判断目标页面，只检测非登录页面
-          if (prevScreen !== currentScreen && currentScreen !== 'SignIn') {
+          if (prevScreen !== currentScreen
+            && currentScreen !== 'Register'
+            && currentScreen !== 'SignIn') {
 
             // 获取并判断本地存储token
             storage.load('accessToken', (accessToken) => {

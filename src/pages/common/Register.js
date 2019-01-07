@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
+import * as users from '../../services/users';
 
-class Login extends Component {
+class Register extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      accout: 'administrator',
+      account: 'administrator',
       username: '张三',
       mobile: '18600000000',
       password: '',
@@ -23,9 +24,9 @@ class Login extends Component {
     const dismissKeyboard = require('dismissKeyboard');
     dismissKeyboard();
 
-    // 登录协议
-    const { username, password, accout, mobile, checkBoxUserAgreement } = this.state;
-    if (accout === '') {
+    // 表单处理
+    const { username, password, account, mobile, checkBoxUserAgreement } = this.state;
+    if (account === '') {
       Toast.info('请输入用户名', 1, undefined, false);
     } else if (password === '') {
       Toast.info('请输入密码', 1, undefined, false);
@@ -38,19 +39,35 @@ class Login extends Component {
     } else {
       const { dispatch } = this.props;
       this.setState({ loading: true });
-      dispatch({
-        type: `global/login`,
-        payload: {
-          account: username,
-          pwd: password,
-        },
-        callback: (data) => {
-          this.setState({ loading: false });
-          if (data.error_code !== 0) {
-            Toast.fail('请检查用户名或密码，稍后再试');
-          }
+
+      // 请求参数
+      const request = {
+        'account': account,
+        'pwd': password,
+        'username': username,
+        'mobile': mobile,
+      }
+
+      // 请求API
+      const res = users.register(request);
+
+      res.then(({ data }) => {
+        // 注册结果
+        this.setState({ loading: false });
+        if (data.error_code === 0) {
+          Modal.alert('注册成功',
+            `用户名：${account} \n` +
+            `请注册人脸信息，点击下一步`,
+            [
+              { text: '下一步', onPress: () => this.props.navigation.navigate('faceReg') },
+            ]
+          );
+        }
+        else {
+          Modal.alert('注册失败', '请稍后再试，' + data.error_msg);
         }
       })
+        .catch((error) => { console.error('error', error) });
     }
   }
 
@@ -59,10 +76,10 @@ class Login extends Component {
       <View style={styles.wrapper}>
         <List style={styles.form} renderHeader={'注册'}>
           <InputItem
-            value={this.state.accout}
+            value={this.state.account}
             onChange={value => {
               this.setState({
-                accout: value,
+                account: value,
               });
             }}
             placeholder="您的登录用户名"
@@ -195,4 +212,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Register);

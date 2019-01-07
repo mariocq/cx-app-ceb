@@ -7,6 +7,12 @@ export function login(values) {
     body: JSON.stringify(values),
   });
 }
+export function register(values) {
+  return request(IP.domain + '/api/user/register', {
+    method: 'POST',
+    body: JSON.stringify(values),
+  });
+}
 export function resetPassword(values) {
   return request(IP.domain + '/api/user/setpassword', {
     method: 'POST',
