@@ -59,7 +59,7 @@ class Register extends Component {
             `用户名：${account} \n` +
             `请注册人脸信息，点击下一步`,
             [
-              { text: '下一步', onPress: () => this.props.navigation.navigate('faceReg') },
+              { text: '下一步', onPress: () => this.props.navigation.navigate('UserFaceReg') },
             ]
           );
         }

@@ -123,6 +123,7 @@ class Router extends Component {
           // 判断目标页面，只检测非登录页面
           if (prevScreen !== currentScreen
             && currentScreen !== 'Register'
+            && currentScreen !== 'UserFaceReg'
             && currentScreen !== 'SignIn') {
 
             // 获取并判断本地存储token
