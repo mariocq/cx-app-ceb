@@ -1,4 +1,4 @@
-import { Modal } from '@ant-design/react-native';
+import { Modal, Button } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import carType from '../../assets/image/carType.png';
@@ -7,6 +7,7 @@ import ImagePicker from "../../component/ImagePicker";
 import * as faceService from '../../services/faceService';
 import { scaleSize } from '../../utils/screenUtil';
 import locationService from '../../utils/locationService';
+import navigationService from '../../utils/navigationService';
 
 class OptSupervision extends Component {
   static navigationOptions = {
@@ -22,10 +23,16 @@ class OptSupervision extends Component {
     alreadyCheck: false,
   }
 
-  resultAlert(data){
+  resultAlert(data) {
     Modal.alert('人脸识别成功', 'log_id：' + data.log_id);
   }
 
+  gotoCarType(){
+    navigationService.navigate('CarType');
+  }
+  gotoCarVin(){
+    navigationService.navigate('CarVin');
+  }
   render() {
     const { alreadyCheck } = this.state;
     const tips = alreadyCheck ? "您已通过身份认证" : "您当前暂未通过身份认证";
@@ -33,20 +40,24 @@ class OptSupervision extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.title}>
-          <Text>用户人脸信息注册</Text>
+          <Text>车辆清库</Text>
         </View>
         <View style={styles.bg}>
-          <Text>{tips}</Text>
-          <Image source={face} style={styles.bgImg}></Image>
+          <Text>请确认您本次提交的信息</Text>
+          <Text>车型：奥迪A4L</Text>
+          <Text>颜色：白色</Text>
+          <Text>年份：2017</Text>
+          <Text>VIN：SHO0380SG93922</Text>
         </View>
-        <ImagePicker
-          reqMatch={faceService.faceMatch}
-          location={locationService.getPosition()}
-          resultAlert={this.resultAlert}
-          access_token={this.props.access_token}
-          device={this.props.device}
-          account={this.props.account}
-        />
+        <View style={styles.btn}>
+          <Button type="primary" onPress={this.gotoCarVin.bind(this)}>确认提交</Button>
+        </View>
+        {/* <View style={styles.btn}>
+          <Button type="primary" onPress={this.gotoCarType.bind(this)}>类型检测</Button>
+        </View>
+        <View style={styles.btn}>
+          <Button type="primary" onPress={this.gotoCarVin.bind(this)}>VIN检测</Button>
+        </View> */}
       </View>
     );
   }
