@@ -38,9 +38,16 @@ export default class MapStatus extends Component {
           {/* 记录点示意 */}
           <MapView.Marker
             color="#2ecc71"
-            title="日期：2019-01-02 14:51:38"
             coordinate={{ latitude: 29.6463534314, longitude: 106.5794634119 }}
-          />
+          >
+            <MapView.Callout>
+              <View style={styles.mapTitle}>
+                <Text style={styles.mapTitleDate}>上报日期：2019-01-02 14:51:38</Text>
+                <Text style={styles.mapTitleName}>长安马自达 2018款</Text>
+                <Text style={styles.mapTitleVIN}>VIN：SH0392034083</Text>
+              </View>
+            </MapView.Callout>
+          </MapView.Marker>
           <MapView.Marker
             color="#2ecc71"
             title="日期：2019-01-02 14:51:38"
@@ -109,5 +116,20 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: '#fff',
+  },
+  mapTitle:{
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 10,
+  },
+  mapTitleDate:{
+    fontSize: 12
+  },
+  mapTitleName:{
+    fontSize: 12,
+    fontWeight: "bold"
+  },
+  mapTitleVIN:{
+    fontSize: 12
   },
 })
