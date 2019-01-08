@@ -2,8 +2,7 @@ import { Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { ToastAndroid, BackHandler } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import CarType from '../pages/carType';
-import CarVin from '../pages/carVin';
+import OptSupervision from '../pages/optSupervision';
 import UserHome from '../pages/userHome';
 import UserVerify from '../pages/userVerify';
 import { connect } from '../utils/dva';
@@ -44,11 +43,8 @@ class Router extends Component {
         身份认证: {
           screen: UserVerify,
         },
-        车型识别: {
-          screen: CarType,
-        },
-        车架号识别: {
-          screen: CarVin,
+        车辆清库: {
+          screen: OptSupervision,
         },
         我的: {
           screen: UserHome,

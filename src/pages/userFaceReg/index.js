@@ -48,13 +48,13 @@ class UserFaceReg extends Component {
         this.setState({ img_data: response.data });
 
         // 请求参数
-        const request = {
-          'image': response.data,
-          'access_token': this.props.access_token,
-          'account': this.props.account,
-          'location': this.props.location,
-          'device': this.props.device,
-        }
+        // const request = {
+        //   'image': response.data,
+        //   'access_token': this.props.access_token,
+        //   'account': this.props.account,
+        //   'location': this.props.location,
+        //   'device': this.props.device,
+        // }
 
         console.log("req", request);
 

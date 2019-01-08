@@ -1,42 +1,45 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import carVin from '../../assets/image/carVin.png';
-import ImagePicker from "../../component/ImagePicker";
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
-import * as faceService from '../../services/faceService';
+import carType from '../../assets/image/carType.png';
+import icon from '../../assets/image/home.png';
 import { Modal } from '@ant-design/react-native';
+import ImagePicker from "../../component/ImagePicker";
+import * as faceService from '../../services/faceService';
 import locationService from '../../utils/locationService';
 
-class CarVin extends Component {
+class CarType extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Image
-        source={carVin}
+        source={carType}
         style={[styles.icon, { tintColor: tintColor }]}
       />
     ),
   };
 
-  resultAlert(data) {
-    const result = data.words_result.length > 0 ? data.words_result[0].words : '暂无'
+  resultAlert(data){
     Modal.alert('识别结果',
       `log_id：${data.log_id} \n\n` +
-      `VIN码：${result}`
+      `车型：${data.result[0].name} \n` +
+      `年份：${data.result[0].year} \n` +
+      `颜色：${data.color_result}`
     );
   }
+
   render() {
     return (
       <View>
         <View style={styles.title}>
-          <Text>车架号识别</Text>
+          <Text>车型识别</Text>
         </View>
         <View style={styles.bg}>
-          <Image source={carVin} style={styles.bgImg}></Image>
+          <Image source={carType} style={styles.bgImg}></Image>
         </View>
 
         <ImagePicker
-          reqMatch={faceService.vinMatch}
+          reqMatch={faceService.typeMatch}
           location={locationService.getPosition()}
           resultAlert={this.resultAlert}
           access_token={this.props.access_token}
@@ -50,18 +53,18 @@ class CarVin extends Component {
 
 const styles = StyleSheet.create({
   icon: {
-    width: scaleSize(50),
-    height: scaleSize(50),
+    width: scaleSize(65),
+    height: scaleSize(40),
   },
   title: {
-    padding: 10, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
+    padding: scaleSize(20), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
   },
   bg: {
-    alignItems: 'center', justifyContent: 'center', height: 350
+    alignItems: 'center', justifyContent: 'flex-start', height: scaleSize(500), marginTop: scaleSize(60)
   },
   bgImg: {
-    opacity: 0.6
-  }
+    opacity: 0.8, height: scaleSize(350), width: scaleSize(350),
+  },
 });
 
 function mapStateToProps(state) {
@@ -70,5 +73,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(CarVin);
-
+export default connect(mapStateToProps)(CarType);
