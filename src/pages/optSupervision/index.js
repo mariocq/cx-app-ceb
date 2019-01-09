@@ -36,6 +36,7 @@ class OptSupervision extends Component {
   render() {
     const { alreadyCheck } = this.state;
     const tips = alreadyCheck ? "您已通过身份认证" : "您当前暂未通过身份认证";
+    const location = locationService.getPosition() || {};
 
     return (
       <View style={styles.wrapper}>
@@ -48,6 +49,8 @@ class OptSupervision extends Component {
           <Text>颜色：白色</Text>
           <Text>年份：2017</Text>
           <Text>VIN：SHO0380SG93922</Text>
+          <Text>{location.longitude}</Text>
+          <Text>{location.altitude}</Text>
         </View>
         <View style={styles.btn}>
           <Button type="primary" onPress={this.gotoCarVin.bind(this)}>确认提交</Button>

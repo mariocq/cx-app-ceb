@@ -34,7 +34,7 @@ const updatePosition = () => {
       // 设置获取超时的时间20秒
       timeout: 20000,
       // 示应用程序的缓存时间，每次请求都是立即去获取一个全新的对象内容
-      maximumAge: 1000
+      // maximumAge: 1000
     }
   )
 }
