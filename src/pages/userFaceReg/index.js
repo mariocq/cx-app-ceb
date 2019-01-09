@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { ActivityIndicator, Button, Modal } from '@ant-design/react-native';
 import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/screenUtil';
-import face from '../../assets/image/face.png';
-import { Button, Modal, Toast } from '@ant-design/react-native';
-import * as faceService from '../../services/faceService';
+import React, { Component } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import face from '../../assets/image/face.png';
+import * as faceService from '../../services/faceService';
+import locationService from '../../utils/locationService';
+import { scaleSize } from '../../utils/screenUtil';
 
 const options = {
   title: '',
@@ -19,23 +20,16 @@ const options = {
 };
 
 class UserFaceReg extends Component {
-  static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => (
-      <Image
-        source={face}
-        style={[styles.icon, { tintColor: tintColor }]}
-      />
-    ),
-  };
 
   state = {
-    img_data: null
+    img_data: null,
+    animating: false,
   }
 
-  resultAlert(data) {
-    Modal.alert('成功', '请登录');
-  }
-
+  /**
+   * 点击拍照处理
+   * TODO 换成只能拍照模式
+   */
   onPick() {
     ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
@@ -46,37 +40,53 @@ class UserFaceReg extends Component {
 
         // 界面显示结果
         this.setState({ img_data: response.data });
-
-        // 请求参数
-        // const request = {
-        //   'image': response.data,
-        //   'access_token': this.props.access_token,
-        //   'account': this.props.account,
-        //   'location': this.props.location,
-        //   'device': this.props.device,
-        // }
-
-        console.log("req", request);
-
-        // // 请求API
-        // const res = this.props.reqMatch(request);
-
-        // res.then(({ data }) => {
-        //   console.log(data);
-        //   // 识别结果
-        //   this.setState({ animating: !this.state.animating });
-        //   if (data.error_code === 0) {
-        //     this.props.resultAlert(data);
-        //   }
-        //   else {
-        //     Modal.alert('识别失败', '请稍后再试，' + data.error_msg);
-        //   }
-        // })
-        //   .catch((error) => { console.error('error', error) });
       }
     });
   }
+
+  /**
+   * 注册人脸协议
+   */
   onRegFace() {
+    const { img_data } = this.state;
+    const { access_token, account } = this.props;
+    const location = locationService.getPosition()
+
+    // 请求参数
+    const request = {
+      "image": img_data,
+      "account": account,
+      'access_token': access_token,
+      "location": location,
+    }
+    console.log(request);
+
+    this.setState({ animating: !this.state.animating });
+
+    // 请求API
+    const res = faceService.faceRegister(request);
+
+    res.then(({ data }) => {
+      console.log(data);
+      // 识别结果
+      this.setState({ animating: !this.state.animating });
+
+      if (data.error_code === 0) {
+        this.resultAlert(data);
+      }
+      else {
+        Modal.alert('注册失败', '请稍后再试，' + data.error_msg);
+      }
+    })
+      .catch((error) => { console.error('error', error) });
+
+  }
+
+  /**
+   * 注册结果处理
+   * @param {*} data
+   */
+  resultAlert(data) {
     Modal.alert('提交成功',
       `请等待管理员审核，审核成功后才能进行清库业务！ \n` +
       `请点击返回登录界面`,
@@ -85,6 +95,7 @@ class UserFaceReg extends Component {
       ]
     );
   }
+
   render() {
     const { img_data } = this.state;
 
@@ -108,6 +119,12 @@ class UserFaceReg extends Component {
         <View style={styles.tips}>
           <Text>{tips}</Text>
         </View>
+        <ActivityIndicator
+          animating={this.state.animating}
+          toast
+          size="large"
+          text="注册中..."
+        />
       </View>
     );
   }
@@ -140,4 +157,10 @@ const styles = StyleSheet.create({
 });
 
 
-export default UserFaceReg;
+function mapStateToProps(state) {
+  return {
+    ...state.global,
+  };
+}
+
+export default connect(mapStateToProps)(UserFaceReg);
