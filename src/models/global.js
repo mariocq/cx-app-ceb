@@ -63,6 +63,8 @@ export default {
         }
         callback(data);
       }
+      // 本地存储access_token
+      storage.save('accessToken', data.access_token)
     },
     *register({ payload, callback }, { call, put }) {
       let { data } = yield call(usersService.register, payload);

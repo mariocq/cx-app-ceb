@@ -12,6 +12,7 @@ const options = {
   title: '',
   takePhotoButtonTitle: '拍照',
   cancelButtonTitle: '取消',
+  quality: 0.5,
   chooseFromLibraryButtonTitle: '选择图片',
   storageOptions: {
     skipBackup: true,
