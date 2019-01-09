@@ -11,6 +11,7 @@ export default {
     mobile: "",
     groups: [],
     device: null,
+    face_check: false,
   },
   reducers: {
     signok(state, { payload: { access_token, username, account, mobile, groups } }) {
@@ -46,6 +47,12 @@ export default {
       return {
         ...state,
         device: payload,
+      };
+    },
+    faceCheck(state, { payload }) {
+      return {
+        ...state,
+        face_check: payload,
       };
     },
   },
@@ -104,6 +111,12 @@ export default {
     *deviceInit({ payload }, { put, call }) {
       yield put({
         type: 'device',
+        payload: payload,
+      });
+    },
+    *faceCheckSet({ payload }, { put }) {
+      yield put({
+        type: 'faceCheck',
         payload: payload,
       });
     },

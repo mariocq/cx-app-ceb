@@ -23,12 +23,21 @@ class UserVerify extends Component {
   }
 
   resultAlert(data){
-    Modal.alert('人脸识别成功', 'log_id：' + data.log_id);
+    if (data.result.score > 80 ) {
+      Modal.alert('人脸识别成功', 'log_id：' + data.log_id);
+      this.props.dispatch({
+        type: `global/faceCheckSet`,
+        payload: true
+      })
+    }
+    else{
+      Modal.alert('检测失败', '请调整好角度和光线，重新拍照');
+    }
   }
 
   render() {
-    const { alreadyCheck } = this.state;
-    const tips = alreadyCheck ? "您已通过身份认证" : "您当前暂未通过身份认证";
+    const { face_check } = this.props;
+    const tips = face_check ? "您已通过身份认证" : "您当前暂未通过身份认证";
 
     return (
       <View>
@@ -42,7 +51,7 @@ class UserVerify extends Component {
         <ImagePicker
           reqMatch={faceService.faceMatch}
           location={locationService.getPosition()}
-          resultAlert={this.resultAlert}
+          resultAlert={this.resultAlert.bind(this)}
           access_token={this.props.access_token}
           device={this.props.device}
           account={this.props.account}
