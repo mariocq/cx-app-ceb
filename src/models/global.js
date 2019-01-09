@@ -24,6 +24,13 @@ export default {
         groups,
       };
     },
+    registerok(state, { payload: { access_token, account } }) {
+      return {
+        ...state,
+        access_token,
+        account,
+      };
+    },
     signout(state, { }) {
       return {
         ...state,
@@ -53,8 +60,20 @@ export default {
             type: 'signok',
             payload: data,
           });
-          // 本地存储access_token
-          storage.save('accessToken', data.access_token)
+        }
+        callback(data);
+      }
+    },
+    *register({ payload, callback }, { call, put }) {
+      let { data } = yield call(usersService.register, payload);
+      if (data) {
+        // 设置reducer
+        if (data.error_code === 0) {
+          // 登录成功
+          yield put({
+            type: 'registerok',
+            payload: data,
+          });
         }
         callback(data);
       }

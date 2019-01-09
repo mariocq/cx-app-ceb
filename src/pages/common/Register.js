@@ -3,17 +3,16 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
-import * as users from '../../services/users';
 
 class Register extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      account: 'administrator',
-      username: '张三',
-      mobile: '18600000000',
-      password: '',
+      account: 'user01',
+      username: '李四',
+      mobile: '10086',
+      password: '1',
       checkBoxUserAgreement: true,
       loading: false,
     };
@@ -40,34 +39,35 @@ class Register extends Component {
       const { dispatch } = this.props;
       this.setState({ loading: true });
 
-      // 请求参数
-      const request = {
-        'account': account,
-        'pwd': password,
-        'username': username,
-        'mobile': mobile,
-      }
+      dispatch({
+        type: `global/register`,
+        payload: {
+          'account': account,
+          'pwd': password,
+          'username': username,
+          'mobile': mobile,
+        },
+        callback: (data) => {
+          // 注册结果
+          this.setState({ loading: false });
 
-      // 请求API
-      const res = users.register(request);
-
-      res.then(({ data }) => {
-        // 注册结果
-        this.setState({ loading: false });
-        if (data.error_code === 0) {
-          Modal.alert('注册成功',
-            `用户名：${account} \n` +
-            `请注册人脸信息，点击下一步`,
-            [
-              { text: '下一步', onPress: () => this.props.navigation.navigate('UserFaceReg') },
-            ]
-          );
-        }
-        else {
-          Modal.alert('注册失败', '请稍后再试，' + data.error_msg);
+          if (data.error_code === 0) {
+            const { account } = data;
+            Modal.alert('注册成功',
+              `用户名：${account} \n` +
+              `请注册人脸信息，点击下一步`,
+              [
+                { text: '下一步', onPress: () => this.props.navigation.navigate('UserFaceReg') },
+              ]
+            );
+          }
+          else {
+            Modal.alert('注册失败', '请稍后再试，' + data.error_msg);
+          }
         }
       })
-        .catch((error) => { console.error('error', error) });
+
+
     }
   }
 
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    login: state.global.login, // state 映射到 props
+    ...state.global,
   };
 }
 

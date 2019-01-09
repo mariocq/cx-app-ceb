@@ -44,8 +44,8 @@ class Login extends Component {
   }
 
   gotoRegister() {
-    this.props.navigation.navigate('UserFaceReg');
-    // this.props.navigation.navigate('Register');
+    // this.props.navigation.navigate('UserFaceReg');
+    this.props.navigation.navigate('Register');
   }
 
   handleLogin() {
