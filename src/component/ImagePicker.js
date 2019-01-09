@@ -6,6 +6,9 @@ import { Button, ActivityIndicator, Modal, Toast } from '@ant-design/react-nativ
 const options = {
   title: '',
   takePhotoButtonTitle: '拍照',
+  quality: 0.5,
+  maxWidth: 1000,
+  maxHeight: 1000,
   cancelButtonTitle: '取消',
   chooseFromLibraryButtonTitle: '选择图片',
   storageOptions: {

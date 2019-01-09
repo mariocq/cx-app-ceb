@@ -13,6 +13,8 @@ const options = {
   takePhotoButtonTitle: '拍照',
   cancelButtonTitle: '取消',
   quality: 0.5,
+  maxWidth: 1000,
+  maxHeight: 1000,
   chooseFromLibraryButtonTitle: '选择图片',
   storageOptions: {
     skipBackup: true,
