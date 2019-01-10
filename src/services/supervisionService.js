@@ -11,7 +11,7 @@ export function resultReport(values) {
   });
 }
 export function getReportLog(values) {
-  return request(IP.domain + '/api/log/inspection?offset=1&limit=10', {
+  return request(IP.domain + '/api/log/inspection?offset=0&limit=100', {
     method: 'POST',
     headers: {
       Authorization: values.access_token

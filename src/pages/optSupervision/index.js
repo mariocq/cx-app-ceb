@@ -105,6 +105,15 @@ class OptSupervision extends Component {
               {
                 text: '电子围栏', onPress: () => {
                   this.gotoReCheck();
+                  // 更新围栏数据
+                  this.props.dispatch({
+                    type: `supervision/getReportLog`,
+                    payload: {
+                      access_token: this.props.access_token,
+                      account: this.props.account,
+                    }
+                  })
+                  // 跳转围栏
                   this.props.navigation.navigate('MapFence');
                 }
               },

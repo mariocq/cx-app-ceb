@@ -11,8 +11,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
-      username: 'administrator',
+      password: '1',
+      username: 'user01',
       loading: false,
     };
   }
@@ -77,6 +77,7 @@ class Login extends Component {
   }
 
   render() {
+
     return (
       <View style={styles.wrapper}>
         <Image

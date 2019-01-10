@@ -9,6 +9,7 @@ export default {
     year: "",
     color: "",
     vin: "",
+    list: [],
   },
   reducers: {
     carType(state, { payload: { name, year, color } }) {
@@ -21,6 +22,12 @@ export default {
       return {
         ...state,
         vin,
+      };
+    },
+    list(state, { payload }) {
+      return {
+        ...state,
+        list: payload,
       };
     },
   },
@@ -41,6 +48,16 @@ export default {
       let { data } = yield call(supervisionService.resultReport, payload);
       if (data) {
         callback(data);
+      }
+    },
+    *getReportLog({ payload }, { call, put }) {
+      let { data } = yield call(supervisionService.getReportLog, payload);
+      if (data.error_code === 0) {
+        // 获取日志成功
+        yield put({
+          type: 'list',
+          payload: data.records,
+        });
       }
     },
   }
