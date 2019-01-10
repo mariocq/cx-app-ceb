@@ -1,4 +1,4 @@
-import { Steps } from '@ant-design/react-native';
+import { Steps, Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import carTypeIcon from '../../assets/image/carType.png';
@@ -7,6 +7,7 @@ import { scaleSize } from '../../utils/screenUtil';
 import CarResult from "./carResult";
 import CarType from "./carType";
 import CarVin from "./carVin";
+import locationService from '../../utils/locationService';
 
 const Step = Steps.Step;
 
@@ -22,6 +23,7 @@ class OptSupervision extends Component {
 
   state = {
     currentStep: 0,
+    reportLoading: false,
   }
 
   gotoVinCheck(data) {
@@ -49,6 +51,7 @@ class OptSupervision extends Component {
       }
     })
   }
+
   gotoReCheck() {
     this.setState({ currentStep: 0 })
 
@@ -68,9 +71,54 @@ class OptSupervision extends Component {
       }
     })
   }
-  render() {
-    console.log(this.props.supervision);
 
+  resultReport(data) {
+    const location = locationService.getPosition() || {};
+    const { name, year, color, vin } = this.props.supervision;
+    // 请求数据
+    const req = {
+      'access_token': this.props.access_token,
+      "account": this.props.account,
+      "car": {
+        "vin": vin,
+        "model": name,
+        "year": year,
+        "color": color
+      },
+      location,
+    }
+
+    this.setState({ reportLoading: true });
+
+    this.props.dispatch({
+      type: `supervision/report`,
+      payload: req,
+      callback: (data) => {
+        // 提交监管结果返回
+        this.setState({ reportLoading: false });
+
+        if (data.error_code === 0) {
+          Modal.alert('提交成功',
+            `请返回车型识别界面，您也可以进入电子围栏查看提交记录`,
+            [
+              { text: '返回', onPress: () => this.gotoReCheck() },
+              {
+                text: '电子围栏', onPress: () => {
+                  this.gotoReCheck();
+                  this.props.navigation.navigate('MapFence');
+                }
+              },
+            ]
+          );
+        }
+        else {
+          Modal.alert('注册失败', '请稍后再试，' + data.error_msg);
+        }
+      }
+    })
+  }
+
+  render() {
     return (
       <View style={styles.wrapper}>
         <View style={styles.title}>
@@ -107,12 +155,15 @@ class OptSupervision extends Component {
         </View>
 
         <View style={styles.contentWrap}>
-          { this.state.currentStep === 0 ?
+          {this.state.currentStep === 0 ?
             <CarType gotoVinCheck={this.gotoVinCheck.bind(this)} access_token={this.props.access_token} /> :
             this.state.currentStep === 1 ?
-            <CarVin gotoResult={this.gotoResult.bind(this)} access_token={this.props.access_token} /> :
-            this.state.currentStep === 2 ?
-            <CarResult supervision={this.props.supervision} gotoReCheck={this.gotoReCheck.bind(this)} /> : null
+              <CarVin gotoResult={this.gotoResult.bind(this)} access_token={this.props.access_token} /> :
+              this.state.currentStep === 2 ?
+                <CarResult supervision={this.props.supervision}
+                  gotoReCheck={this.gotoReCheck.bind(this)}
+                  resultReport={this.resultReport.bind(this)}
+                  reportLoading={this.state.reportLoading} /> : null
           }
         </View>
       </View>
@@ -145,7 +196,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     ...state.global,
-    supervision: {...state.supervision},
+    supervision: { ...state.supervision },
   };
 }
 

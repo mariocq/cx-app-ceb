@@ -1,4 +1,4 @@
-import * as usersService from '../services/users';
+import * as supervisionService from '../services/supervisionService';
 import { storage } from '../utils/storage';
 
 export default {
@@ -36,6 +36,12 @@ export default {
         type: 'carVin',
         payload: payload,
       });
+    },
+    *report({ payload, callback }, { call, put }) {
+      let { data } = yield call(supervisionService.resultReport, payload);
+      if (data) {
+        callback(data);
+      }
     },
   }
 }

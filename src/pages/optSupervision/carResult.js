@@ -1,20 +1,10 @@
 import { Button, Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import locationService from '../../utils/locationService';
 import { scaleSize } from '../../utils/screenUtil';
 
 class CarResult extends Component {
-
-  resultAlert(data) {
-    Modal.alert('识别结果',
-      `log_id：${1} \n\n` +
-      `车型：${2} \n`
-    );
-  }
-
   render() {
-    const location = locationService.getPosition() || {};
     const { name, year, color, vin } = this.props.supervision;
     return (
       <View>
@@ -26,7 +16,8 @@ class CarResult extends Component {
           <Text>VIN：{vin}</Text>
         </View>
         <View style={styles.btn}>
-          <Button type="primary" onPress={() => this.resultAlert()}>确认提交</Button>
+          <Button loading={this.props.reportLoading}
+            type="primary" onPress={() => this.props.resultReport()}>确认提交</Button>
         </View>
         <View style={styles.btnReCheck}>
           <Button onPress={() => this.props.gotoReCheck()}>重新识别</Button>

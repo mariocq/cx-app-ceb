@@ -1,4 +1,4 @@
-import * as usersService from '../services/users';
+import * as usersService from '../services/usersService';
 import { storage } from '../utils/storage';
 
 export default {
