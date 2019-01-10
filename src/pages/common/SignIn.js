@@ -37,12 +37,6 @@ class Login extends Component {
     })
   }
 
-  componentDidUpdate() {
-    if (this.props.login) {
-      this.props.navigation.navigate('身份认证');
-    }
-  }
-
   gotoRegister() {
     // this.props.navigation.navigate('UserFaceReg');
     this.props.navigation.navigate('Register');
@@ -72,6 +66,10 @@ class Login extends Component {
           this.setState({ loading: false });
           if (data.error_code !== 0) {
             Toast.fail('请检查用户名或密码，稍后再试');
+          }
+          else {
+            // 登录成功
+            this.props.navigation.navigate('身份认证');
           }
         }
       })
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    login: state.global.login, // state 映射到 props
+    ...state.global, // state 映射到 props
   };
 }
 

@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { Initializer, MapView } from 'react-native-baidumap-sdk';
 Initializer.init().catch(e => console.error(e));
 
-export default class MapStatus extends Component {
+class MapFence extends Component {
   static navigationOptions = { title: '电子围栏' }
 
   ZGC = {
@@ -133,3 +133,5 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
 })
+
+export default MapFence;

@@ -9,20 +9,18 @@ export default {
     account: "",
     username: "",
     mobile: "",
+    store_id: "",
+    status: "",
     groups: [],
     device: null,
     face_check: false,
   },
   reducers: {
-    signok(state, { payload: { access_token, username, account, mobile, groups } }) {
+    signok(state, { payload }) {
       return {
         ...state,
+        ...payload,
         login: true,
-        access_token,
-        account,
-        username,
-        mobile,
-        groups,
       };
     },
     registerok(state, { payload: { access_token, account } }) {
@@ -40,6 +38,8 @@ export default {
         account: "",
         username: "",
         mobile: "",
+        store_id: "",
+        status: "",
         groups: [],
       };
     },

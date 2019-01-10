@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start", marginTop: scaleSize(60), marginLeft: scaleSize(140)
   },
   stepsTitle: {
-    width: scaleSize(150), marginLeft: scaleSize(-50), marginTop: scaleSize(30)
+    width: scaleSize(180), marginLeft: scaleSize(-50), marginTop: scaleSize(30)
   },
   contentWrap: {
     alignItems: "center",
