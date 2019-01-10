@@ -24,17 +24,17 @@ class CarType extends Component {
     return (
       <View>
         <View style={styles.bg}>
-          <Image source={carType} style={styles.bgImg}></Image>
+          <Text>请确认您本次提交的信息</Text>
+          <Text>车型：奥迪A4L</Text>
+          <Text>颜色：白色</Text>
+          <Text>年份：2017</Text>
+          <Text>VIN：SHO0380SG93922</Text>
+          <Text>{location.longitude}</Text>
+          <Text>{location.altitude}</Text>
         </View>
-
-        <ImagePicker
-          reqMatch={faceService.typeMatch}
-          location={locationService.getPosition()}
-          resultAlert={this.resultAlert}
-          access_token={this.props.access_token}
-          device={this.props.device}
-          account={this.props.account}
-        />
+        <View style={styles.btn}>
+          <Button type="primary" onPress={this.gotoCarVin.bind(this)}>确认提交</Button>
+        </View>
       </View>
     );
   }
@@ -44,9 +44,10 @@ const styles = StyleSheet.create({
   bg: {
     alignItems: 'center', justifyContent: 'flex-start', height: scaleSize(500), marginTop: scaleSize(60)
   },
-  bgImg: {
-    opacity: 0.8, height: scaleSize(350), width: scaleSize(350),
-  },
+  btn: {
+    justifyContent: 'center',
+    margin: scaleSize(50)
+  }
 });
 
 function mapStateToProps(state) {
