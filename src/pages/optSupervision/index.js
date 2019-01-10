@@ -112,13 +112,14 @@ class OptSupervision extends Component {
           );
         }
         else {
-          Modal.alert('注册失败', '请稍后再试，' + data.error_msg);
+          Modal.alert('认证失败', '请稍后再试，' + data.error_msg);
         }
       }
     })
   }
 
   render() {
+    const { face_check } = this.props;
     return (
       <View style={styles.wrapper}>
         <View style={styles.title}>
@@ -156,7 +157,7 @@ class OptSupervision extends Component {
 
         <View style={styles.contentWrap}>
           {this.state.currentStep === 0 ?
-            <CarType gotoVinCheck={this.gotoVinCheck.bind(this)} access_token={this.props.access_token} /> :
+            <CarType face_check={face_check} gotoVinCheck={this.gotoVinCheck.bind(this)} access_token={this.props.access_token} /> :
             this.state.currentStep === 1 ?
               <CarVin gotoResult={this.gotoResult.bind(this)} access_token={this.props.access_token} /> :
               this.state.currentStep === 2 ?

@@ -1,4 +1,4 @@
-import { Modal } from '@ant-design/react-native';
+import { Modal, Button } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import carType from '../../assets/image/carType.png';
@@ -9,7 +9,7 @@ import { scaleSize } from '../../utils/screenUtil';
 
 class CarType extends Component {
 
-  resultAlert(data){
+  resultAlert(data) {
     Modal.alert('识别结果',
       `LogID：${data.log_id} \n\n` +
       `车型：${data.result[0].name} \n` +
@@ -22,20 +22,24 @@ class CarType extends Component {
   }
 
   render() {
+    const { face_check } = this.props;
     return (
       <View>
         <View style={styles.bg}>
           <Image source={carType} style={styles.bgImg}></Image>
         </View>
-
-        <ImagePicker
-          reqMatch={faceService.typeMatch}
-          location={locationService.getPosition()}
-          resultAlert={this.resultAlert.bind(this)}
-          access_token={this.props.access_token}
-          device={this.props.device}
-          account={this.props.account}
-        />
+        {
+          face_check ?
+            <ImagePicker
+              reqMatch={faceService.typeMatch}
+              location={locationService.getPosition()}
+              resultAlert={this.resultAlert.bind(this)}
+              access_token={this.props.access_token}
+              device={this.props.device}
+              account={this.props.account}
+            /> :
+            <Button type="primary" onPress={() => Modal.alert('提示',"请先进行人脸身份认证")}>检测</Button>
+        }
       </View>
     );
   }
