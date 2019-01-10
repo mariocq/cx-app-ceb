@@ -5,9 +5,10 @@ import { Provider } from '@ant-design/react-native';
 import Home from './models/Home';
 import Mine from './models/Mine';
 import global from './models/global';
+import supervision from './models/supervision';
 
 const app = dva({
-  models: [global, Home, Mine],
+  models: [global, supervision],
   onError(e) {
     console.log('onError', e);
   },

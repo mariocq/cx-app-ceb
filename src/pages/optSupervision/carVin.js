@@ -11,10 +11,10 @@ class CarVin extends Component {
   resultAlert(data) {
     const result = data.words_result.length > 0 ? data.words_result[0].words : '暂无'
     Modal.alert('识别结果',
-      `log_id：${data.log_id} \n\n` +
+      `LogID：${data.log_id} \n\n` +
       `VIN码：${result}`,
       [
-        { text: '下一步', onPress: () => this.props.gotoResult() },
+        { text: '下一步', onPress: () => this.props.gotoResult(result) },
       ]
     );
   }

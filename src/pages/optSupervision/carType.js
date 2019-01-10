@@ -11,12 +11,12 @@ class CarType extends Component {
 
   resultAlert(data){
     Modal.alert('识别结果',
-      `log_id：${data.log_id} \n\n` +
+      `LogID：${data.log_id} \n\n` +
       `车型：${data.result[0].name} \n` +
       `年份：${data.result[0].year} \n` +
       `颜色：${data.color_result}`,
       [
-        { text: '下一步', onPress: () => this.props.gotoVinCheck() },
+        { text: '下一步', onPress: () => this.props.gotoVinCheck(data) },
       ]
     );
   }

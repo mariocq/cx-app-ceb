@@ -24,13 +24,52 @@ class OptSupervision extends Component {
     currentStep: 0,
   }
 
-  gotoVinCheck() {
+  gotoVinCheck(data) {
     this.setState({ currentStep: 1 })
+
+    // 设置车型数据
+    this.props.dispatch({
+      type: `supervision/carTypeSet`,
+      payload: {
+        name: data.result[0].name,
+        year: data.result[0].year,
+        color: data.color_result,
+      }
+    })
   }
-  gotoResult() {
+
+  gotoResult(data) {
     this.setState({ currentStep: 2 })
+
+    // 设置VIN数据
+    this.props.dispatch({
+      type: `supervision/carVinSet`,
+      payload: {
+        vin: data,
+      }
+    })
+  }
+  gotoReCheck() {
+    this.setState({ currentStep: 0 })
+
+    // 清空数据
+    this.props.dispatch({
+      type: `supervision/carTypeSet`,
+      payload: {
+        name: "",
+        year: "",
+        color: "",
+      }
+    })
+    this.props.dispatch({
+      type: `supervision/carVinSet`,
+      payload: {
+        vin: "",
+      }
+    })
   }
   render() {
+    console.log(this.props.supervision);
 
     return (
       <View style={styles.wrapper}>
@@ -69,11 +108,11 @@ class OptSupervision extends Component {
 
         <View style={styles.contentWrap}>
           { this.state.currentStep === 0 ?
-            <CarType gotoVinCheck={this.gotoVinCheck.bind(this)} /> :
+            <CarType gotoVinCheck={this.gotoVinCheck.bind(this)} access_token={this.props.access_token} /> :
             this.state.currentStep === 1 ?
-            <CarVin gotoResult={this.gotoResult.bind(this)} /> :
+            <CarVin gotoResult={this.gotoResult.bind(this)} access_token={this.props.access_token} /> :
             this.state.currentStep === 2 ?
-            <CarResult /> : null
+            <CarResult supervision={this.props.supervision} gotoReCheck={this.gotoReCheck.bind(this)} /> : null
           }
         </View>
       </View>
@@ -106,6 +145,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     ...state.global,
+    supervision: {...state.supervision},
   };
 }
 
