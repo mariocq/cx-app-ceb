@@ -1,16 +1,12 @@
-import { Modal, Button, Steps } from '@ant-design/react-native';
+import { Steps } from '@ant-design/react-native';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import carTypeIcon from '../../assets/image/carType.png';
-import face from '../../assets/image/face.png';
-import ImagePicker from "../../component/ImagePicker";
-import * as faceService from '../../services/faceService';
+import { connect } from '../../utils/dva';
 import { scaleSize } from '../../utils/screenUtil';
-import locationService from '../../utils/locationService';
-import navigationService from '../../utils/navigationService';
+import CarResult from "./carResult";
 import CarType from "./carType";
 import CarVin from "./carVin";
-import CarResult from "./carResult";
 
 const Step = Steps.Step;
 
@@ -28,13 +24,6 @@ class OptSupervision extends Component {
     currentStep: 0,
   }
 
-  resultAlert(data) {
-    Modal.alert('人脸识别成功', 'log_id：' + data.log_id);
-  }
-
-  gotoCarType() {
-    navigationService.navigate('CarType');
-  }
   gotoVinCheck() {
     this.setState({ currentStep: 1 })
   }
@@ -114,5 +103,11 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapStateToProps(state) {
+  return {
+    ...state.global,
+  };
+}
 
-export default OptSupervision;
+
+export default connect(mapStateToProps)(OptSupervision);

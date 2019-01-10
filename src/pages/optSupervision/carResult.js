@@ -1,13 +1,8 @@
+import { Button, Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
-import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/screenUtil';
-import carType from '../../assets/image/carType.png';
-import icon from '../../assets/image/home.png';
-import { Modal, Button } from '@ant-design/react-native';
-import ImagePicker from "../../component/ImagePicker";
-import * as faceService from '../../services/faceService';
+import { StyleSheet, Text, View } from 'react-native';
 import locationService from '../../utils/locationService';
+import { scaleSize } from '../../utils/screenUtil';
 
 class CarResult extends Component {
 
@@ -54,10 +49,4 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  return {
-    ...state.global,
-  };
-}
-
-export default connect(mapStateToProps)(CarResult);
+export default CarResult;

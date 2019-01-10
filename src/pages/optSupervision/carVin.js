@@ -1,12 +1,11 @@
+import { Modal } from '@ant-design/react-native';
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import carVin from '../../assets/image/carVin.png';
 import ImagePicker from "../../component/ImagePicker";
-import { connect } from '../../utils/dva';
-import { scaleSize } from '../../utils/screenUtil';
 import * as faceService from '../../services/faceService';
-import { Modal } from '@ant-design/react-native';
 import locationService from '../../utils/locationService';
+import { scaleSize } from '../../utils/screenUtil';
 
 class CarVin extends Component {
   resultAlert(data) {
@@ -48,11 +47,5 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {
-    ...state.global,
-  };
-}
-
-export default connect(mapStateToProps)(CarVin);
+export default CarVin;
 
