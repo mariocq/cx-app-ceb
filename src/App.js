@@ -2,8 +2,6 @@ import React from 'react';
 import dva from './utils/dva';
 import Router from './routes';
 import { Provider } from '@ant-design/react-native';
-import Home from './models/Home';
-import Mine from './models/Mine';
 import global from './models/global';
 import supervision from './models/supervision';
 

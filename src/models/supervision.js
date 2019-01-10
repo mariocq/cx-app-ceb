@@ -9,8 +9,6 @@ export default {
     year: "",
     color: "",
     vin: "",
-    isSetpOneSuccessfully: false,
-    isSetpTwoSuccessfully: false,
   },
   reducers: {
     carType(state, { payload: { name, year, color } }) {
@@ -23,18 +21,6 @@ export default {
       return {
         ...state,
         vin,
-      };
-    },
-    setpOne(state, { payload }) {
-      return {
-        ...state,
-        isSetpOneSuccessfully: payload,
-      };
-    },
-    setpTwo(state, { payload }) {
-      return {
-        ...state,
-        isSetpOneSuccessfully: payload,
       };
     },
   },
