@@ -16,7 +16,10 @@ class CarType extends Component {
       `log_id：${data.log_id} \n\n` +
       `车型：${data.result[0].name} \n` +
       `年份：${data.result[0].year} \n` +
-      `颜色：${data.color_result}`
+      `颜色：${data.color_result}`,
+      [
+        { text: '下一步', onPress: () => this.props.gotoVinCheck() },
+      ]
     );
   }
 
@@ -30,7 +33,7 @@ class CarType extends Component {
         <ImagePicker
           reqMatch={faceService.typeMatch}
           location={locationService.getPosition()}
-          resultAlert={this.resultAlert}
+          resultAlert={this.resultAlert.bind(this)}
           access_token={this.props.access_token}
           device={this.props.device}
           account={this.props.account}
@@ -42,10 +45,10 @@ class CarType extends Component {
 
 const styles = StyleSheet.create({
   bg: {
-    alignItems: 'center', justifyContent: 'flex-start', height: scaleSize(500), marginTop: scaleSize(60)
+    alignItems: 'center', justifyContent: 'flex-start', height: scaleSize(300), marginTop: scaleSize(60)
   },
   bgImg: {
-    opacity: 0.8, height: scaleSize(350), width: scaleSize(350),
+    opacity: 0.8, height: scaleSize(250), width: scaleSize(450), resizeMode: "cover"
   },
 });
 

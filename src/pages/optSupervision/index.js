@@ -9,6 +9,8 @@ import { scaleSize } from '../../utils/screenUtil';
 import locationService from '../../utils/locationService';
 import navigationService from '../../utils/navigationService';
 import CarType from "./carType";
+import CarVin from "./carVin";
+import CarResult from "./carResult";
 
 const Step = Steps.Step;
 
@@ -33,11 +35,13 @@ class OptSupervision extends Component {
   gotoCarType() {
     navigationService.navigate('CarType');
   }
-  gotoCarVin() {
-    navigationService.navigate('CarVin');
+  gotoVinCheck() {
+    this.setState({ currentStep: 1 })
+  }
+  gotoResult() {
+    this.setState({ currentStep: 2 })
   }
   render() {
-    const location = locationService.getPosition() || {};
 
     return (
       <View style={styles.wrapper}>
@@ -54,7 +58,6 @@ class OptSupervision extends Component {
                   <Text style={styles.stepsTitle}>1.车型识别</Text>
                 </View>
               }
-              status="wait"
             />
             <Step
               key={1}
@@ -63,7 +66,6 @@ class OptSupervision extends Component {
                   <Text style={styles.stepsTitle}>2.车架号识别</Text>
                 </View>
               }
-              status="wait"
             />
             <Step
               key={2}
@@ -72,23 +74,19 @@ class OptSupervision extends Component {
                   <Text style={styles.stepsTitle}>3.提交认证</Text>
                 </View>
               }
-              status="wait"
             />
           </Steps>
         </View>
 
         <View style={styles.contentWrap}>
-          {this.state.currentStep === 0 ?
-            <CarType/> : null
+          { this.state.currentStep === 0 ?
+            <CarType gotoVinCheck={this.gotoVinCheck.bind(this)} /> :
+            this.state.currentStep === 1 ?
+            <CarVin gotoResult={this.gotoResult.bind(this)} /> :
+            this.state.currentStep === 2 ?
+            <CarResult /> : null
           }
         </View>
-
-        {/* <View style={styles.btn}>
-          <Button type="primary" onPress={this.gotoCarType.bind(this)}>类型检测</Button>
-        </View>
-        <View style={styles.btn}>
-          <Button type="primary" onPress={this.gotoCarVin.bind(this)}>VIN检测</Button>
-        </View> */}
       </View>
     );
   }
@@ -106,13 +104,13 @@ const styles = StyleSheet.create({
     padding: scaleSize(20), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#dbdbdb'
   },
   steps: {
-    alignItems:"flex-start", marginTop: scaleSize(60), marginLeft: scaleSize(140)
+    alignItems: "flex-start", marginTop: scaleSize(60), marginLeft: scaleSize(140)
   },
   stepsTitle: {
     width: scaleSize(150), marginLeft: scaleSize(-50), marginTop: scaleSize(30)
   },
-  contentWrap:{
-    alignItems:"center",
+  contentWrap: {
+    alignItems: "center",
   }
 });
 
