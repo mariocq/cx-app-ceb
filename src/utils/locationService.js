@@ -25,6 +25,8 @@ const updatePosition = () => {
       // 经度：positionData.longitude
       // 纬度：positionData.latitude
       currentPosition = positionData;
+      // console.log(currentPosition);
+
     },
     (error) => {
       console.warn('失败：' + JSON.stringify(error.message))

@@ -98,8 +98,8 @@ class OptSupervision extends Component {
         this.setState({ reportLoading: false });
 
         if (data.error_code === 0) {
-          Modal.alert('提交成功',
-            `请返回车型识别界面，您也可以进入电子围栏查看提交记录`,
+          let msg = data.error_msg !== "SUCCESS" ? "超出范围，请进入电子围栏界面查看记录" : "请返回，您也可以进入电子围栏查看记录";
+          Modal.alert('提交成功', msg,
             [
               { text: '返回', onPress: () => this.gotoReCheck() },
               {
