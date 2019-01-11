@@ -72,15 +72,15 @@ class UserHome extends Component {
             </View>
             <View style={styles.infoBox}>
               <Text style={styles.userName}>用户名：{username}</Text>
-              <Text style={styles.loginName}>登录名：{account}</Text>
+              <Text style={styles.loginName}>登录名：{account} &nbsp;&nbsp; 岗位：{group ? group : "暂无"}</Text>
+            </View>
+            <View>
+
             </View>
             <View style={styles.phoneBox}>
-              <Text style={styles.userGroup}>岗位：{group ? group : "暂无"}</Text>
               <Text style={styles.userPhone}>电话：{mobile ? mobile : "暂无"}</Text>
-            </View>
-            <View style={styles.storeBox}>
-              <Text style={styles.userGroup}>4S店：{name}</Text>
-              <Text style={styles.userPhone}>地址：{addr}</Text>
+              <Text style={styles.userText}>4S店：{name ? name : "暂无"}</Text>
+              <Text style={styles.userText}>地址：{addr ? addr : "暂无"}</Text>
             </View>
           </View>
         </View>
@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
     marginTop: 0
   },
   userBox: {
-    alignItems: 'flex-start', justifyContent: 'flex-start', margin: scaleSize(40), height: scaleSize(300), backgroundColor: '#108ee9',
+    alignItems: 'flex-start', justifyContent: 'flex-start',
+    margin: scaleSize(40), height: scaleSize(300), backgroundColor: '#108ee9',
     borderRadius: scaleSize(10), flexDirection: 'row', flexWrap: 'wrap',
     paddingTop: scaleSize(60),
   },
@@ -131,22 +132,19 @@ const styles = StyleSheet.create({
     marginLeft: scaleSize(30),
   },
   phoneBox: {
-    marginLeft: scaleSize(20), marginTop: scaleSize(20), width: scaleSize(238)
-  },
-  storeBox: {
-    marginLeft: scaleSize(20), marginTop: scaleSize(20), //flexDirection: 'row', height: 20,
+    marginLeft: scaleSize(40)
   },
   userHead: {
     tintColor: '#ffffff',
   },
   userName: {
-    fontSize: 16, color: '#FFFFFF', width: scaleSize(400),
+    fontSize: 16, color: '#FFFFFF', width: scaleSize(500),
   },
   loginName: {
-    fontSize: 14, color: '#83cbff', width: scaleSize(400),
+    fontSize: 14, color: '#83cbff', width: scaleSize(500),
   },
-  userGroup: {
-    fontSize: 14, color: '#83cbff',
+  userText: {
+    fontSize: 14, color: '#83cbff', marginTop: scaleSize(5)
   },
   userPhone: {
     fontSize: 14, color: '#83cbff', marginTop: scaleSize(20)
