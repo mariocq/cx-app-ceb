@@ -44,7 +44,7 @@ export default {
         status: "",
         groups: [],
         face_check: false,
-        store_info: null,
+        store_info: {},
       };
     },
     device(state, { payload }) {

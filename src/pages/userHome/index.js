@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start', justifyContent: 'flex-start',
     margin: scaleSize(40), height: scaleSize(300), backgroundColor: '#108ee9',
     borderRadius: scaleSize(10), flexDirection: 'row', flexWrap: 'wrap',
-    paddingTop: scaleSize(60),
+    paddingTop: scaleSize(40),
   },
   imgBox: {
     marginLeft: scaleSize(30),
