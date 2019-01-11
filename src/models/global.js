@@ -15,7 +15,7 @@ export default {
     groups: [],
     device: null,
     face_check: false,
-    store_info: null,
+    store_info: {},
   },
   reducers: {
     signok(state, { payload }) {

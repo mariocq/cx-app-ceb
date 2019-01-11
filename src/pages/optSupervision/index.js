@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   icon: {
-    width: scaleSize(65),
+    width: scaleSize(70),
     height: scaleSize(40),
   },
   title: {
