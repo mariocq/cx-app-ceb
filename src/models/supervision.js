@@ -50,7 +50,7 @@ export default {
         callback(data);
       }
     },
-    *getReportLog({ payload }, { call, put }) {
+    *getReportLog({ payload, callback }, { call, put }) {
       let { data } = yield call(supervisionService.getReportLog, payload);
       if (data.error_code === 0) {
         // 获取日志成功
@@ -58,6 +58,7 @@ export default {
           type: 'list',
           payload: data.records,
         });
+        callback(data.records);
       }
     },
   }
