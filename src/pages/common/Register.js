@@ -18,6 +18,10 @@ class Register extends Component {
     };
   }
 
+  gotoBackSignIn(){
+    this.props.navigation.navigate('SignIn');
+  }
+
   handleRegister() {
     // 隐藏键盘
     const dismissKeyboard = require('dismissKeyboard');
@@ -135,6 +139,9 @@ class Register extends Component {
         <View>
           <Button style={styles.btn} type="primary" loading={this.state.loading} onPress={this.handleRegister.bind(this)}>注册</Button>
         </View>
+        <View>
+          <Button style={styles.btnReg} onPress={this.gotoBackSignIn.bind(this)}>返回</Button>
+        </View>
 
         {/* 注册协议弹框 */}
         <Modal
@@ -190,6 +197,11 @@ const styles = StyleSheet.create({
     marginTop: scaleSize(-10)
   },
   btn: {
+    marginTop: scaleSize(20),
+    height: scaleSize(80),
+    width: scaleSize(600),
+  },
+  btnReg: {
     marginTop: scaleSize(20),
     height: scaleSize(80),
     width: scaleSize(600),
