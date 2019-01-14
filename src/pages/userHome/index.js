@@ -28,18 +28,19 @@ class UserHome extends Component {
               access_token: this.props.access_token
             },
             callback: (data) => {
-              if (data.error_code === 0) {
+              // if (data.error_code === 0) {
+              // 成功失败均返回首页
 
-                // 重置路由，路由栈顶层设置为“SignIn”，防止back键
-                const resetAction = NavigationActions.reset({
-                  index: 0,
-                  actions: [
-                    NavigationActions.navigate({ routeName: 'SignIn' })
-                  ]
-                })
-                navigationService.dispatch(resetAction);
+              // 重置路由，路由栈顶层设置为“SignIn”，防止back键
+              const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                  NavigationActions.navigate({ routeName: 'SignIn' })
+                ]
+              })
+              navigationService.dispatch(resetAction);
 
-              }
+              // }
             }
           })
         }
