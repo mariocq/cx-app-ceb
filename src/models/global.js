@@ -77,21 +77,21 @@ export default {
             type: 'signok',
             payload: data,
           });
+
+          // 本地存储access_token
+          storage.save('accessToken', data.access_token)
+
+          // 获取4S店信息
+          let { data: info } = yield call(storeService.info, { access_token: data.access_token, id: data.store_id });
+          const { result } = info;
+          if (result) {
+            yield put({
+              type: 'storeInfo',
+              payload: result,
+            });
+          }
         }
         callback(data);
-      }
-
-      // 本地存储access_token
-      storage.save('accessToken', data.access_token)
-
-      // 获取4S店信息
-      let { data: info } = yield call(storeService.info, { access_token: data.access_token, id: data.store_id });
-      const { result } = info;
-      if (result) {
-        yield put({
-          type: 'storeInfo',
-          payload: result,
-        });
       }
     },
     *register({ payload, callback }, { call, put }) {
