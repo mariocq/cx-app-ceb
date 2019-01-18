@@ -22,22 +22,28 @@ class UserVerify extends Component {
     alreadyCheck: false,
   }
 
-  resultAlert(data){
-    if (data.result.score > 80 ) {
-      Modal.alert('人脸识别成功', 'log_id：' + data.log_id);
+  resultAlert(data, img_data) {
+    if (data.result.score > 80) {
+      const img = { uri: `data:image/png;base64,${img_data}` };
+      Modal.alert('人脸识别成功',
+        <View>
+          <Image source={img} style={styles.resultImg} />
+          <Text>身份认证成功，可进行车辆清库操作</Text>
+        </View>
+      );
       this.props.dispatch({
         type: `global/faceCheckSet`,
         payload: true
       })
     }
-    else{
+    else {
       Modal.alert('检测失败', '请调整好角度和光线，重新拍照');
     }
   }
 
   render() {
     const { face_check } = this.props;
-    const tips = face_check ? "您已通过身份认证" : "您当前暂未通过身份认证";
+    const tips = face_check ? <Text>您<Text style={styles.txtRed}>已通过</Text>身份认证</Text> : "您当前暂未通过身份认证";
 
     return (
       <View>
@@ -77,6 +83,12 @@ const styles = StyleSheet.create({
   bgImg: {
     opacity: 0.8, height: scaleSize(350), width: scaleSize(350),
   },
+  resultImg: {
+    height: scaleSize(300), width: scaleSize(400), resizeMode: "cover", marginBottom: scaleSize(20), alignSelf: "center"
+  },
+  txtRed:{
+    color: "#ff0000"
+  }
 });
 
 function mapStateToProps(state) {

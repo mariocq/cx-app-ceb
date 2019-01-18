@@ -9,7 +9,7 @@ import { scaleSize } from '../../utils/screenUtil';
 
 class CarVin extends Component {
   resultAlert(data, img_data) {
-    const img = img_data ? { uri: `data:image/png;base64,${img_data}` } : carType;
+    const img = img_data ? { uri: `data:image/png;base64,${img_data}` } : carVin;
     const result = data.words_result.length > 0 ? data.words_result[0].words : '暂无'
     Modal.alert('识别结果',
       <View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     opacity: 0.8, height: scaleSize(290), width: scaleSize(350)
   },
   resultImg: {
-    height: scaleSize(150), width: scaleSize(250), resizeMode: "cover", marginBottom: scaleSize(20), alignSelf: "center"
+    height: scaleSize(300), width: scaleSize(400), resizeMode: "cover", marginBottom: scaleSize(20), alignSelf: "center"
   },
 });
 

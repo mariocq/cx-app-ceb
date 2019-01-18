@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     opacity: 0.8, height: scaleSize(250), width: scaleSize(450), resizeMode: "cover"
   },
   resultImg: {
-    height: scaleSize(150), width: scaleSize(250), resizeMode: "cover", marginBottom: scaleSize(20)
+    height: scaleSize(300), width: scaleSize(400), resizeMode: "cover", marginBottom: scaleSize(20)
   },
 });
 
