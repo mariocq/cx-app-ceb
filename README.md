@@ -1,2 +1,1 @@
 # CX-APP-CEB
-app
