@@ -36,7 +36,10 @@ export default class ImagePickerExample extends React.Component {
     };
   }
   onPick() {
-    ImagePicker.showImagePicker(options, (response) => {
+    const { onlyReal = false } = this.props;
+    const func = onlyReal ? 'launchCamera' : 'showImagePicker';
+
+    ImagePicker[func](options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -73,9 +76,10 @@ export default class ImagePickerExample extends React.Component {
     });
   }
   render() {
+    const { buttonText } = this.props;
     return (
       <View style={{ margin: 20 }}>
-        <Button type="primary" onPress={this.onPick.bind(this)}>检测</Button>
+        <Button type="primary" onPress={this.onPick.bind(this)}>{buttonText ? buttonText : "检测"}</Button>
         <ActivityIndicator
           animating={this.state.animating}
           toast
