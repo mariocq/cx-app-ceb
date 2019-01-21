@@ -70,12 +70,14 @@ class MapFence extends Component {
 
     // 最近一次特殊处理，定位中心
     if (length === 1) {
+      const latitude = parseFloat(tempList[0].location.latitude);
+      const longitude = parseFloat(tempList[0].location.longitude);
       // 一次定位到当前位置
       this.setState({
         zoomLevel: 16,
         center: {
-          latitude: tempList[0].location.latitude,
-          longitude: tempList[0].location.longitude,
+          latitude,
+          longitude
         }
       })
     }
@@ -83,10 +85,12 @@ class MapFence extends Component {
       // 5次和所有定位4S中心
       const { store_info } = this.props;
       const { center = [0, 0] } = store_info.fence;
+      const latitude = parseFloat(center[1]);
+      const longitude = parseFloat(center[0]);
       this.setState({
         zoomLevel: length === 5 ? 15 : 14,
         center: {
-          latitude: center[1], longitude: center[0]
+          latitude, longitude
         }
       })
     }
@@ -95,13 +99,16 @@ class MapFence extends Component {
     const { store_info } = this.props;
     const { cur_list } = this.state;
     const { center = [0, 0], radius } = store_info.fence;
+    const latitude = parseFloat(center[1]);
+    const longitude = parseFloat(center[0]);
     const List = this.markerList(cur_list);
+    console.log(latitude, longitude);
 
     return (
       <View style={styles.full}>
         <MapView style={styles.full} ref={ref => this.mapView = ref}
           zoomLevel={15}
-          center={{ latitude: center[1], longitude: center[0] }}
+          center={{ latitude, longitude }}
           {...this.state}
         >
           {/* 标记点 */}
@@ -109,7 +116,7 @@ class MapFence extends Component {
 
           {/* 电子围栏区域 */}
           <MapView.Circle
-            center={{ latitude: center[1], longitude: center[0] }}
+            center={{ latitude, longitude }}
             radius={radius * 1000}
             strokeWidth={2}
             strokeColor="rgba(0, 0, 255, 0.5)"
